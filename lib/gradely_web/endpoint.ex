@@ -42,5 +42,7 @@ defmodule GradelyWeb.Endpoint do
     key: "_gradely_key",
     signing_salt: "S2Pc1P3x"
 
+    plug Pow.Plug.Session, otp_app: :gradely
+
   plug GradelyWeb.Router
 end
