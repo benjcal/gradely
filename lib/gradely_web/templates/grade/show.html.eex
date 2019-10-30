@@ -1,0 +1,8 @@
+<h1>Show Grade</h1>
+
+<ul>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.grade_path(@conn, :edit, @grade) %></span>
+<span><%= link "Back", to: Routes.grade_path(@conn, :index) %></span>

@@ -24,6 +24,12 @@ defmodule GradelyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    
+    resources "/activities", ActivityController
+    resources "/courses", CourseController
+    resources "/grades", GradeController
+    resources "/students", StudentController
+    resources "/tracks", TrackController
   end
 
   # Other scopes may use custom stacks.
