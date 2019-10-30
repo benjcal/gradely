@@ -6,6 +6,8 @@ defmodule Gradely.Students.Student do
     field :first_name, :string
     field :last_name, :string
     belongs_to :user, Gradely.Users.User
+    many_to_many :courses, Gradely.Courses.Course,
+      join_through: Gradely.CourseStudent
 
     timestamps()
   end

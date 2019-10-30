@@ -5,6 +5,8 @@ defmodule Gradely.Courses.Course do
   schema "courses" do
     field :name, :string
     belongs_to :user, Gradely.Users.User
+    many_to_many :students, Gradely.Students.Student,
+      join_through: Gradely.CourseStudent
 
     timestamps()
   end
