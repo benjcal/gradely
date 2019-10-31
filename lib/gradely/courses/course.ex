@@ -16,7 +16,7 @@ defmodule Gradely.Courses.Course do
   def changeset(course, attrs) do
     course
     |> cast(attrs, [:name])
-    |> put_assoc(:user, attrs.user)
+    |> put_assoc(:user, Map.get(attrs, "user"))
     |> validate_required([:name])
   end
 end

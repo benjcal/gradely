@@ -14,7 +14,10 @@ defmodule GradelyWeb.CourseController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"course" => course_params}) do
+  def create(conn, params) do
+    %{"course" => course_params} = params
+    course_params = Map.put(course_params, "user", conn.assigns.current_user)
+    IO.inspect course_params
     case Courses.create_course(course_params) do
       {:ok, course} ->
         conn
