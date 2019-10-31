@@ -3,10 +3,11 @@ defmodule Gradely.Courses.Course do
   import Ecto.Changeset
 
   schema "courses" do
-    field :name, :string
     belongs_to :user, Gradely.Users.User
+
+    field :name, :string
     many_to_many :students, Gradely.Students.Student,
-      join_through: Gradely.Enrollments
+      join_through: Gradely.Enrollments.Enrollment
 
     timestamps()
   end
@@ -14,7 +15,8 @@ defmodule Gradely.Courses.Course do
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [:name, :user_id])
-    |> validate_required([:name, :user_id])
+    |> cast(attrs, [:name])
+    |> put_assoc(:user, attrs.user)
+    |> validate_required([:name])
   end
 end
