@@ -1,0 +1,73 @@
+<div class="w3 fl h-100"> 
+    <div class="flex flex-column items-center bg-brand-dark h-100">
+        
+        <div class="top pt4">
+            <a href="/" use:link class="db ma2">
+                <img src="images/logo.png" alt="logo">
+            </a>
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="middle flex flex-column items-center pt7">
+            <a href="/students" use:link use:active={'/students', 'white' } title="Students"
+                class="mv3 white-30 hover-white link">
+                <i class="material-icons">face</i>
+            </a>
+
+            <a href="/courses" title="Courses" use:link class="mv3 white-30 hover-white link">
+                <i class="material-icons">book</i>
+            </a>
+
+            <a href="/activities" title="Activities" use:link class="mv3 white-30 hover-white link">
+                <i class="material-icons">assignment</i>
+            </a>
+
+            <a href="/" title="School" use:link class="mv3 white-30 hover-white link">
+                <i class="material-icons">account_balance</i>
+            </a>
+
+            <a href="/" title="Preferences" use:link class="mv3 white-30 hover-white link">
+                <i class="material-icons">build</i>
+            </a>
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="bottom pt6">
+        <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+            <i class="material-icons">exit_to_app</i>
+        <% end %>
+            <a
+                class="white-30 hover-white link"
+                href="<%= Routes.pow_session_path(@conn, :delete)%>"
+                data-method="delete"
+                data-to="/session"
+                rel="nofollow"
+                >
+                
+            </a>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+
+
+<!-- 
+
+<nav role="navigation">
+          <ul>
+            <%= if @current_user do %>
+              <li>Signed in as: <%= @current_user.email %></li>
+              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
+              <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit) %></li>
+            <% else %>
+              <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+              <li><%= link "Sign up", to: Routes.pow_registration_path(@conn, :new) %></li>
+            <% end %>
+          </ul>
+        </nav>
+-->
