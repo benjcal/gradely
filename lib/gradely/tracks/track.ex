@@ -12,7 +12,7 @@ defmodule Gradely.Tracks.Track do
   @doc false
   def changeset(track, attrs) do
     track
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :user_id])
+    |> validate_required([:name, :user_id])
   end
 end
