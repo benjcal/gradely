@@ -1,62 +1,38 @@
-<div class="w3 fl h-100"> 
-    <div class="flex flex-column items-center bg-brand-dark h-100">
-        
-        <div class="top pt4">
-            <a href="/" use:link class="db ma2">
-                <img src="images/logo.png" alt="logo">
-            </a>
-        </div>
+<div class="w3 fl h-100">
+  <div class="flex flex-column items-center bg-brand-dark h-100">
+
+    <div class="top pt4">
+      <a href="/" use:link class="db ma2">
+        <img src="images/logo.png" alt="logo">
+      </a>
+    </div>
 
         <!-- MIDDLE -->
-        <div class="middle flex flex-column items-center pt7">
-            <a href="/students" use:link use:active={'/students', 'white' } title="Students"
-                class="mv3 white-30 hover-white link">
-                <i class="material-icons">face</i>
-            </a>
+    <div class="middle flex flex-column items-center pt7">
+      <%= link to: Routes.student_path(@conn, :index) do %>
+        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "students", do: "white" %>"><i class="material-icons">face</i></div>
+      <% end %>
 
-            <a href="/courses" title="Courses" use:link class="mv3 white-30 hover-white link">
-                <i class="material-icons">book</i>
-            </a>
+      <%= link to: Routes.course_path(@conn, :index) do %>
+        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "courses", do: "white" %>"><i class="material-icons">book</i></div>
+      <% end %>
 
-            <a href="/activities" title="Activities" use:link class="mv3 white-30 hover-white link">
-                <i class="material-icons">assignment</i>
-            </a>
+      <%= link to: Routes.activity_path(@conn, :index) do %>
+        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "activities", do: "white" %>"><i class="material-icons">assignment</i></div>
+      <% end %>
+    </div>
 
-            <a href="/" title="School" use:link class="mv3 white-30 hover-white link">
-                <i class="material-icons">account_balance</i>
-            </a>
-
-            <a href="/" title="Preferences" use:link class="mv3 white-30 hover-white link">
-                <i class="material-icons">build</i>
-            </a>
-        </div>
-
-        <!-- BOTTOM -->
-        <div class="bottom pt6">
-        <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
-            <i class="material-icons">exit_to_app</i>
-        <% end %>
-            <a
-                class="white-30 hover-white link"
-                href="<%= Routes.pow_session_path(@conn, :delete)%>"
-                data-method="delete"
-                data-to="/session"
-                rel="nofollow"
-                >
-                
-            </a>
-        </div>
-
-
-
-
-
+    <div class="bottom pt6">
+      <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+        <i class="material-icons">exit_to_app</i>
+      <% end %>
+    </div>
 
     </div>
 </div>
 
 
-<!-- 
+<!--
 
 <nav role="navigation">
           <ul>

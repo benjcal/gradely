@@ -9,13 +9,13 @@
     <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
 	  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap' rel='stylesheet'>
   </head>
-  <body>
+  <body class="bg-black-05">
     <%= render "menu.html", assigns %>
     <%= render @view_module, @view_template, assigns %>
-    <!-- 
+
+    <!--
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
     -->
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
