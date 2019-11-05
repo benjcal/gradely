@@ -14,9 +14,11 @@ defmodule Gradely.Courses.Course do
 
   @doc false
   def changeset(course, attrs) do
+    attrs = Gradely.Utils.keys_to_atoms(attrs)
     course
     |> cast(attrs, [:name])
-    |> put_assoc(:user, Map.get(attrs, "user"))
+    |> put_assoc(:user, Map.get(attrs, :user))
     |> validate_required([:name])
   end
+
 end

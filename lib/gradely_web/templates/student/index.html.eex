@@ -21,11 +21,11 @@
         <%= for student <- @students do %>
         <tr height="30" class="brand-light">
 
-          <td><i class="material-icons">check_box_outline_blank</i></td>
-          <td>student number</td>
+          <td><input type="checkbox"></td>
+          <td><%= student.number %></td>
           <td>
-            <%= link to: Routes.student_path(@conn, :show, student)  do %>
-            <span class="black-80 pr4 link"><%= student.first_name %> <%= student.last_name %></span>
+            <%= link to: Routes.student_path(@conn, :show, student), class: "link" do %>
+            <span class="black-80 pr4"><%= student.first_name %> <%= student.last_name %></span>
             <% end %>
           </td>
           <td>

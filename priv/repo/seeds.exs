@@ -12,7 +12,7 @@
 alias Pow.Ecto.Schema.Password
 
 users = [
-  %{email: "aa@gradely.io", password: "qwerty"},
+  %{email: "aa", password: "qwerty"},
   %{email: "bb@gradely.io", password: "qwerty"},
   %{email: "cc@gradely.io", password: "qwerty"}
 ]
@@ -44,18 +44,18 @@ end
 
 users = Enum.map(users, create_user)
 
-create_student = fn student -> 
+create_student = fn student ->
 	{:ok, student} = Gradely.Students.create_student Map.put(student, :user, Enum.at(users, 0))
 	student
 end
 
-create_course = fn course -> 
-	{:ok, course} = Gradely.Courses.create_course Map.put(course, :user, Enum.at(users, 0))
+create_course = fn course ->
+	{:ok, course} = Gradely.Courses.create_course IO.inspect Map.put(course, :user, Enum.at(users, 0))
 	course
 end
 
-enroll_student = fn (student, courses) -> 
-	Gradely.Enrollments.enroll_student(student, courses)	
+enroll_student = fn (student, courses) ->
+	Gradely.Enrollments.enroll_student(student, courses)
 end
 
 students =  Enum.map(students, create_student)

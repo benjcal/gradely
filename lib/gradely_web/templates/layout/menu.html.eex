@@ -10,15 +10,15 @@
         <!-- MIDDLE -->
     <div class="middle flex flex-column items-center pt7">
       <%= link to: Routes.student_path(@conn, :index) do %>
-        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "students", do: "white" %>"><i class="material-icons">face</i></div>
+        <div class="mv3 white-30 hover-white link <%= if Enum.at(@conn.path_info, 0) == "students", do: "white" %>"><i class="material-icons">face</i></div>
       <% end %>
 
       <%= link to: Routes.course_path(@conn, :index) do %>
-        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "courses", do: "white" %>"><i class="material-icons">book</i></div>
+        <div class="mv3 white-30 hover-white link <%= if Enum.at(@conn.path_info, 0) == "courses", do: "white" %>"><i class="material-icons">book</i></div>
       <% end %>
 
       <%= link to: Routes.activity_path(@conn, :index) do %>
-        <div class="mv3 white-30 hover-white link <%= if hd(@conn.path_info) == "activities", do: "white" %>"><i class="material-icons">assignment</i></div>
+        <div class="mv3 white-30 hover-white link <%= if Enum.at(@conn.path_info, 0) == "activities", do: "white" %>"><i class="material-icons">assignment</i></div>
       <% end %>
     </div>
 

@@ -14,6 +14,11 @@ defmodule GradelyWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -21,10 +26,10 @@ defmodule GradelyWeb.Router do
   end
 
   scope "/", GradelyWeb do
-    pipe_through :browser
+    pipe_through [:browser, :protected]
 
     get "/", PageController, :index
-    
+
     resources "/activities", ActivityController
     resources "/courses", CourseController
     resources "/grades", GradeController
