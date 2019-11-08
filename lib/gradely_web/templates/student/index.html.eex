@@ -1,4 +1,5 @@
 <div>
+  <%= render "menu.html", assigns %>
   <div class="flex items-center brand-dark">
     <i class="material-icons">face</i>
     <span class="f3 ml3 fw5">STUDENTS LIST</span>

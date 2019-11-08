@@ -1,3 +1,5 @@
+<%= render "menu.html", assigns %>
+
 <h1>Edit Student</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.student_path(@conn, :update, @student)) %>

@@ -1,0 +1,9 @@
+<div class="mv3 flex items-center">
+    <%= link to: Routes.student_path(@conn, :index) do %>
+        <div class="black-30 hover-black-60 link mr4"><i class="material-icons">list</i></div>
+    <% end %>
+
+    <%= link to: Routes.student_path(@conn, :new) do %>
+        <div class="black-30 hover-black-60 link"><i class="material-icons">add</i></div>
+    <% end %>
+</div>

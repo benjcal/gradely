@@ -3,7 +3,7 @@
 
     <div class="top pt4">
       <a href="/" use:link class="db ma2">
-        <img src="images/logo.png" alt="logo">
+        <img src="/images/logo.png" alt="logo">
       </a>
     </div>
 
