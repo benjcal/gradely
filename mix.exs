@@ -43,7 +43,10 @@ defmodule Gradely.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:pow, "~> 1.0.14"}
+      {:pow, "~> 1.0.14"},
+      {:faker, "~> 0.13", only: :dev},
+      {:alchemic_avatar, "~> 0.1.3"},
+      {:phoenix_components, "~> 1.0"}
     ]
   end
 

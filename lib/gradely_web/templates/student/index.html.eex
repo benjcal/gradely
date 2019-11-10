@@ -1,42 +1,70 @@
 <div>
-  <%= render "menu.html", assigns %>
-  <div class="flex items-center brand-dark">
-    <i class="material-icons">face</i>
-    <span class="f3 ml3 fw5">STUDENTS LIST</span>
+  <div class="mh4 mv3 ph4 pv3 bg-white br2">
+
+  <div class="header flex bb b--black-10 pb1">
+  <div class="left flex-auto f3">Student</div>
+  <div class="right">
+  <select>
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="40">40</option>
+    <option value="100">100</option>
+  </select>
+  </div>
   </div>
 
-  <div class="mt3 pa3 bg-white br2 shadow-1 w-50">
-    <table class="mt3">
-
+    <table class="w-100 mt2">
       <thead>
         <tr height="30" class="brand-accent f7 fw6">
-          <td></td>
-          <td align="center">ID</td>
+          <td width=24></td>
+          <td width=64></td>
+          <td width=64>ID</td>
           <td>NAME</td>
-          <td>EDIT</td>
-          <td>DELETE</td>
+          <td align="center">ATTENDANCE</td>
+          <td>AVERAGE GRADE</td>
+          <td align="center">ACTIVITIES SUBMITTED</td>
+          <td width=32></td>
+          <td width=32></td>
         </tr>
       </thead>
 
       <tbody>
         <%= for student <- @students do %>
-        <tr height="30" class="brand-light">
+        <tr height="42" class="brand-light hover-bg-black-10">
 
-          <td><input type="checkbox"></td>
+          <td align="center"><input type="checkbox"></td>
+          <td align="center">
+            <div
+              class="w2 h2 br-100 flex justify-center items-center white-60 f5 fw6"
+              style='background: #<%= AlchemicAvatar.Color.google(student.first_name <> student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
+              >
+            <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
+            </div>
+          </td>
           <td><%= student.number %></td>
+
           <td>
             <%= link to: Routes.student_path(@conn, :show, student), class: "link" do %>
-            <span class="black-80 pr4"><%= student.first_name %> <%= student.last_name %></span>
+            <span class="black-70 pr4 fw5"><%= student.first_name %> <%= student.last_name %></span>
             <% end %>
+          </td>
+          <td align="center">
+            <%= Enum.random(60..90) %>%
+          </td>
+          <td>
+            <progress max=100 value="<%= Enum.random(50..100) %>"> </progress>
+          </td>
+          <td align="center">
+            <%= Enum.random(60..90) %>%
           </td>
           <td>
             <%= link to: Routes.student_path(@conn, :edit, student) do %>
-            <span class="brand-light"><i class="material-icons">edit</i></span>
+            <span class="brand-light"><i class="material-icons" style="font-size: 16px">edit</i></span>
             <% end %>
           </td>
           <td >
             <%= link to: Routes.student_path(@conn, :delete, student), method: :delete, data: [confirm: "Are you sure?"]  do %>
-            <span class="brand-light"><i class="material-icons">delete</i></span>
+            <span class="brand-light"><i class="material-icons" style="font-size: 16px">delete</i></span>
             <% end %>
           </td>
 

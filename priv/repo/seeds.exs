@@ -13,24 +13,6 @@ alias Pow.Ecto.Schema.Password
 
 users = [
   %{email: "aa", password: "qwerty"},
-  %{email: "bb@gradely.io", password: "qwerty"},
-  %{email: "cc@gradely.io", password: "qwerty"}
-]
-
-students = [
-	%{first_name: "Ben", last_name: "Cal"},
-	%{first_name: "Ben", last_name: "Cal"},
-	%{first_name: "Ben", last_name: "Cal"},
-	%{first_name: "Ben", last_name: "Cal"},
-	%{first_name: "Ben", last_name: "Cal"},
-	%{first_name: "Ben", last_name: "Cal"},
-]
-
-courses = [
-	%{name: "Course 1"},
-	%{name: "Course 2"},
-	%{name: "Course 3"},
-	%{name: "Course 4"},
 ]
 
 create_user = fn user ->
@@ -44,13 +26,14 @@ end
 
 users = Enum.map(users, create_user)
 
-create_student = fn student ->
-	{:ok, student} = Gradely.Students.create_student Map.put(student, :user, Enum.at(users, 0))
+create_student = fn num ->
+	{:ok, student} = Gradely.Students.create_student %{first_name: Faker.Name.first_name, last_name: Faker.Name.last_name, number: Integer.to_string(num), user: Enum.at(users, 0)}
 	student
 end
 
-create_course = fn course ->
-	{:ok, course} = Gradely.Courses.create_course IO.inspect Map.put(course, :user, Enum.at(users, 0))
+create_course = fn _  ->
+	{:ok, course} =
+		Gradely.Courses.create_course %{name: Enum.join([Faker.Industry.industry, Integer.to_string(Enum.random(101..500))], " "), user: Enum.at(users, 0)}
 	course
 end
 
@@ -58,8 +41,8 @@ enroll_student = fn (student, courses) ->
 	Gradely.Enrollments.enroll_student(student, courses)
 end
 
-students =  Enum.map(students, create_student)
-courses =  Enum.map(courses, create_course)
+students =  Enum.map(1001..1043, create_student)
+courses =  Enum.map(0..10, create_course)
 
 
 Enum.each(students, fn student -> enroll_student.(student, courses) end)
