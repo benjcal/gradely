@@ -21,6 +21,11 @@ defmodule Gradely.Students do
     Repo.all(Student)
   end
 
+
+  def get_page(params) do
+    Repo.paginate(Student, params)
+  end
+
   @doc """
   Gets a single student.
 

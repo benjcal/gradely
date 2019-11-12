@@ -46,7 +46,8 @@ defmodule Gradely.MixProject do
       {:pow, "~> 1.0.14"},
       {:faker, "~> 0.13", only: :dev},
       {:alchemic_avatar, "~> 0.1.3"},
-      {:phoenix_components, "~> 1.0"}
+      {:phoenix_components, "~> 1.0"},
+      {:scrivener_ecto, "~> 2.0"}
     ]
   end
 

@@ -12,7 +12,7 @@
 alias Pow.Ecto.Schema.Password
 
 users = [
-  %{email: "aa", password: "qwerty"},
+  %{email: "a", password: "b"},
 ]
 
 create_user = fn user ->

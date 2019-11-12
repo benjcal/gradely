@@ -1,10 +1,10 @@
 <div>
   <div class="mh4 mv3 ph4 pv3 bg-white br2">
 
-  <div class="header flex bb b--black-10 pb1">
-  <div class="left flex-auto f3">Student</div>
+  <div class="header flex bb b--black-10 pb1 items-center">
+  <div class="left flex-auto f3">Students: <%= @total_entries%></div>
   <div class="right">
-  <select>
+  <select onchange="chagePerPage(value)">
     <option value="10">10</option>
     <option value="20">20</option>
     <option value="40">40</option>
@@ -52,7 +52,9 @@
             <%= Enum.random(60..90) %>%
           </td>
           <td>
-            <progress max=100 value="<%= Enum.random(50..100) %>"> </progress>
+            <div class="w4 bg-black-10 br3">
+              <div class="bg-green br3" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
+            </div>
           </td>
           <td align="center">
             <%= Enum.random(60..90) %>%
