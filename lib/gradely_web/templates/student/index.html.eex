@@ -1,15 +1,29 @@
 <div>
-  <div class="mh4 mv3 ph4 pv3 bg-white br2">
+  <div class="<%= container_class() %>">
 
-  <div class="header flex bb b--black-10 pb1 items-center">
-    <div class="left flex flex-auto f3 items-center"><i class="material-icons pr3 brand-dark" style="font-size: 32px;">face</i>Students: <%= @total_entries%></div>
-    <div class="right">
-      <select onchange="chagePerPage(value)">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="40">40</option>
-        <option value="100">100</option>
-      </select>
+  <div class="<%= container_header_class() %>">
+    <div class="flex-auto flex items-center h3">
+      <i class="material-icons mr1" style="font-size: 32px;">face</i>
+      <span class="f3 mh1 brand-dark">Students</span>
+
+      <a href="/students/new" class="mh1 bw1 b--black-05 b--solid br2 flex items-center justify-center h2 w2 black-30 hover-blue hover-bg-black-10 pointer link">
+        <i class="material-icons" style="font-size: 18px;">add</i>
+      </a>
+
+    </div>
+    <div class="flex items-center">
+      <select onchange="">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="40">40</option>
+          <option value="100">100</option>
+        </select>
+        <div class="flex brand-light w4 h2 ba br2 items-center justify-between">
+          <a href="?page=<%= @page_number - 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
+          <span class=""><%= @page_number %> of <%= @total_pages %></span>
+          <a href="?page=<%= @page_number + 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
+        </div>
+
     </div>
   </div>
 
@@ -74,6 +88,12 @@
         <% end %>
       </tbody>
     </table>
+
+    <div class="flex brand-light w4 h2 ba br2 items-center justify-between">
+      <a href="?page=<%= @page_number - 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
+      <span class=""><%= @page_number %> of <%= @total_pages %></span>
+      <a href="?page=<%= @page_number + 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
+    </div>
 
   </div>
 </div>
