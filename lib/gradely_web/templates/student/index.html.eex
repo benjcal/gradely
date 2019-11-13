@@ -2,15 +2,15 @@
   <div class="mh4 mv3 ph4 pv3 bg-white br2">
 
   <div class="header flex bb b--black-10 pb1 items-center">
-  <div class="left flex-auto f3">Students: <%= @total_entries%></div>
-  <div class="right">
-  <select onchange="chagePerPage(value)">
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="40">40</option>
-    <option value="100">100</option>
-  </select>
-  </div>
+    <div class="left flex flex-auto f3 items-center"><i class="material-icons pr3 brand-dark" style="font-size: 32px;">face</i>Students: <%= @total_entries%></div>
+    <div class="right">
+      <select onchange="chagePerPage(value)">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="40">40</option>
+        <option value="100">100</option>
+      </select>
+    </div>
   </div>
 
     <table class="w-100 mt2">
