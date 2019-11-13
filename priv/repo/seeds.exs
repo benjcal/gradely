@@ -41,7 +41,7 @@ enroll_student = fn (student, courses) ->
 	Gradely.Enrollments.enroll_student(student, courses)
 end
 
-students =  Enum.map(1001..1003, create_student)
+students =  Enum.map(1001..1073, create_student)
 courses =  Enum.map(0..10, create_course)
 
 

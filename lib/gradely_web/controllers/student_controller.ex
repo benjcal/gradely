@@ -5,7 +5,6 @@ defmodule GradelyWeb.StudentController do
   alias Gradely.Students.Student
 
   def index(conn, params) do
-    IO.inspect params
     page = Students.get_page(params)
     render(conn, "index.html",
       students: page.entries,

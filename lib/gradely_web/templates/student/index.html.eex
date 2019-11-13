@@ -2,7 +2,7 @@
   <div class="<%= container_class() %>">
 
   <div class="<%= container_header_class() %>">
-    <div class="flex-auto flex items-center h3">
+    <div class="flex-auto flex items-center pb2">
       <i class="material-icons mr1" style="font-size: 32px;">face</i>
       <span class="f3 mh1 brand-dark">Students</span>
 
@@ -11,20 +11,10 @@
       </a>
 
     </div>
-    <div class="flex items-center">
-      <select onchange="">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="40">40</option>
-          <option value="100">100</option>
-        </select>
-        <div class="flex brand-light w4 h2 ba br2 items-center justify-between">
-          <a href="?page=<%= @page_number - 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
-          <span class=""><%= @page_number %> of <%= @total_pages %></span>
-          <a href="?page=<%= @page_number + 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
-        </div>
 
-    </div>
+
+
+
   </div>
 
     <table class="w-100 mt2">
@@ -49,8 +39,8 @@
           <td align="center"><input type="checkbox"></td>
           <td align="center">
             <div
-              class="w2 h2 br-100 flex justify-center items-center white-60 f5 fw6"
-              style='background: #<%= AlchemicAvatar.Color.google(student.first_name <> student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
+              class="w2 h2 br-100 flex justify-center items-center white-60 f6 fw6"
+              style='background: #<%= AlchemicAvatar.Color.iwanthue(student.first_name <> student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
               >
             <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
             </div>
@@ -89,7 +79,7 @@
       </tbody>
     </table>
 
-    <div class="flex brand-light w4 h2 ba br2 items-center justify-between">
+    <div class="flex brand-light w4 h2 ba br2 items-center justify-between mt3">
       <a href="?page=<%= @page_number - 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
       <span class=""><%= @page_number %> of <%= @total_pages %></span>
       <a href="?page=<%= @page_number + 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
