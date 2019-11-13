@@ -61,7 +61,7 @@ defmodule GradelyWeb.StudentController do
   end
 
   def delete(conn, %{"id" => id}) do
-    student = Students.get_student!(id)
+    student = Students.get_student_clean!(id)
     {:ok, _student} = Students.delete_student(student)
 
     conn

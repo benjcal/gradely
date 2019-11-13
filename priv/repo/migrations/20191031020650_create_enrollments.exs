@@ -3,8 +3,8 @@ defmodule Gradely.Repo.Migrations.CreateEnrollments do
 
   def change do
     create table(:enrollments) do
-      add :course_id, references(:courses, on_delete: :nothing)
-      add :student_id, references(:students, on_delete: :nothing)
+      add :course_id, references(:courses, on_delete: :delete_all)
+      add :student_id, references(:students, on_delete: :delete_all)
 
       timestamps()
     end

@@ -23,4 +23,12 @@ defmodule Gradely.Students.Student do
     |> put_assoc(:courses, Map.get(attrs, :courses, []))
     |> validate_required([:first_name, :last_name])
   end
+
+  @doc false
+  def changeset_edit(student, attrs) do
+    attrs = Gradely.Utils.keys_to_atoms(attrs)
+    student
+    |> cast(attrs, [:number, :first_name, :last_name])
+    |> validate_required([:first_name, :last_name])
+  end
 end

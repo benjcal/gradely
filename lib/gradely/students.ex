@@ -42,8 +42,10 @@ defmodule Gradely.Students do
   """
   def get_student!(id) do
     Repo.get!(Student, id)
-    |> Repo.Repo.preload(:user)
+    |> Repo.preload(:user)
   end
+
+  def get_student_clean!(id), do: Repo.get!(Student, id)
 
 
   @doc """
@@ -78,7 +80,7 @@ defmodule Gradely.Students do
   """
   def update_student(%Student{} = student, attrs) do
     student
-    |> Student.changeset(attrs)
+    |> Student.changeset_edit(attrs)
     |> Repo.update()
   end
 
@@ -108,6 +110,6 @@ defmodule Gradely.Students do
 
   """
   def change_student(%Student{} = student) do
-    Student.changeset(student, %{})
+    Student.changeset_edit(student, %{})
   end
 end

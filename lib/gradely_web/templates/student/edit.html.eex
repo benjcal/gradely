@@ -1,5 +1,50 @@
-<h1>Edit Student</h1>
+<div>
+  <div class="<%= container_class %>">
 
-<%= render "form.html", Map.put(assigns, :action, Routes.student_path(@conn, :update, @student)) %>
+    <div class="<%= container_header_class %> ">
+      <div class="flex-auto flex items-center h3">
+        <i class="material-icons mr1" style="font-size: 32px;">face</i>
+        <span class="f3 mh1 brand-dark">Edit Student</span>
+      </div>
+    </div>
 
-<span><%= link "Back", to: Routes.student_path(@conn, :index) %></span>
+    <%= form_for @changeset, Routes.student_path(@conn, :update, @student), fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+
+
+
+      <%= label f, :number, class: label_class() %>
+      <br />
+      <%= text_input f, :number, placeholder: "i.e. U0001" %>
+      <%= error_tag f, :number %>
+      <br /><br />
+
+      <%= label f, :first_name, class: label_class() %>
+      <br />
+      <%= text_input f, :first_name %>
+      <%= error_tag f, :first_name %>
+      <br /><br />
+
+      <%= label f, :last_name , class: label_class()  %>
+      <br />
+      <%= text_input f, :last_name %>
+      <%= error_tag f, :last_name %>
+      <br /><br />
+
+      <div class="flex">
+        <%= link "Back", to: Routes.student_path(@conn, :index), class: button_class(:gray) <> " " <> "mr2" %>
+        <%= submit "Save", class: button_class(:green) %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
+
