@@ -10,8 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600&display=swap" rel="stylesheet">
 
   </head>
-  <body class="bg-black-05">
-    <main class="flex h-100">
+  <body class="bg-gray-300">
+
+    <main class="flex h-full">
       <%= render "menu.html", assigns %>
       <div class="flex-auto">
         <%= render @view_module, @view_template, assigns %>

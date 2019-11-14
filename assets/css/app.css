@@ -1,28 +1,34 @@
 /* This file is for your main application css. */
 
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
 html, body {
 	width: 100%;
 	height: 100%;
-	margin: 0;
 	font-family: 'Titillium Web', sans-serif;
 }
 
-table {
+/* table {
   border-collapse: collapse;
 }
 
 td {
 	padding: 0;
 	margin: 0;
-}
+} */
 
-:root {
+/* :root {
 	--brand-dark: #3c4250;
 	--brand-light: #94A6D1;
 	--brand-accent: #C2698F;
 }
 
-/* Dark */
+
 .brand-dark {
 	color: var(--brand-dark);
 }
@@ -43,7 +49,7 @@ td {
 	background: var(--brand-dark);
 }
 
-/* Light */
+
 .brand-light {
 	color: var(--brand-light);
 }
@@ -64,7 +70,7 @@ td {
 	background: var(--brand-light);
 }
 
-/* Accent */
+
 .brand-accent {
 	color: var(--brand-accent);
 }
@@ -75,4 +81,4 @@ td {
 
 .b--brand-accent {
 	border-color: var(--brand-accent);
-}
+} */

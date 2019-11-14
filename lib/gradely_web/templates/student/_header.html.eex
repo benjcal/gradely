@@ -1,0 +1,28 @@
+<% menu_button_class = "w2 h2 flex items-center justify-center b--solid bw1 b--black-05 link black-30 hover-brand-dark mr2" %>
+
+<div class="flex pb2 bb b--black-10 items-center">
+
+  <%# Page icon, name and menu icons %>
+  <div class="flex-auto flex items-center">
+    <i class="material-icons mr2 brand-dark" style="font-size: 32px">face</i>
+      <span class="f3 mr2 brand-dark">Students</span>
+
+      <%= link to: Routes.student_path(@conn, :new), class: menu_button_class do %>
+        <i class="material-icons" style="font-size: 18px;">add</i>
+      <% end %>
+      <%= link to: Routes.student_path(@conn, :new), class: menu_button_class do %>
+        <i class="material-icons" style="font-size: 18px;">add</i>
+      <% end %>
+      <%= link to: Routes.student_path(@conn, :new), class: menu_button_class do %>
+        <i class="material-icons" style="font-size: 18px;">add</i>
+      <% end %>
+  </div>
+
+  <select onchange="window.location.assign(value)">
+        <%= for val <- [10,20,40,100] do %>
+          <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
+          <% selected = uri_params_equal?(url, @conn.query_string) %>
+          <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
+        <% end %>
+      </select>
+</div>

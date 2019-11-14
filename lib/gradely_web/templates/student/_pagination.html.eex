@@ -1,0 +1,6 @@
+<div class="flex brand-light w4 h2 ba br2 items-center justify-between mt3">
+
+      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
+      <span class=""><%= @page_number %> of <%= @total_pages %></span>
+      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
+    </div>
