@@ -21,6 +21,17 @@ defmodule Gradely.Courses do
     Repo.all(Course)
   end
 
+  def get_page(params) do
+    sort = case params["sort"] do
+      "name" -> :name
+      _ -> :id
+    end
+
+    Course
+    |> order_by(asc: ^sort)
+    |> Repo.paginate(params)
+  end
+
   @doc """
   Gets a single course.
 

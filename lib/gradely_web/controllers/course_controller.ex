@@ -4,9 +4,15 @@ defmodule GradelyWeb.CourseController do
   alias Gradely.Courses
   alias Gradely.Courses.Course
 
-  def index(conn, _params) do
-    courses = Courses.list_courses()
-    render(conn, "index.html", courses: courses)
+  def index(conn, params) do
+    page = Courses.get_page(params)
+    render(conn, "index.html",
+      courses: page.entries,
+      page_number: page.page_number,
+      page_size: page.page_size,
+      total_pages: page.total_pages,
+      total_entries: page.total_entries
+    )
   end
 
   def new(conn, _params) do
