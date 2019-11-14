@@ -32,5 +32,3 @@ import_config "#{Mix.env()}.exs"
 config :gradely, :pow,
   user: Gradely.Users.User,
   repo: Gradely.Repo
-
-config :phoenix_components, app_name: Gradely
