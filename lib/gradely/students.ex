@@ -23,8 +23,13 @@ defmodule Gradely.Students do
 
 
   def get_page(params) do
+    sort = case params["sort"] do
+      "name" -> :first_name
+      _ -> :id
+    end
+
     Student
-    |> order_by(asc: :first_name)
+    |> order_by(asc: ^sort)
     |> Repo.paginate(params)
   end
 
