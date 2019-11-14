@@ -42,6 +42,9 @@ defmodule GradelyWeb do
       import GradelyWeb.ErrorHelpers
       import GradelyWeb.Gettext
       alias GradelyWeb.Router.Helpers, as: Routes
+
+      import GradelyWeb.Styles
+      import GradelyWeb.URIHelpers
     end
   end
 

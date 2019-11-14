@@ -3,7 +3,7 @@
 
   <div class="<%= container_header_class() %>">
     <div class="flex-auto flex items-center pb2">
-      <i class="material-icons mr1" style="font-size: 32px;">face</i>
+      <i class="material-icons mr1" style="font-size: 32px;">book</i>
       <span class="f3 mh1 brand-dark">Coursess</span>
 
       <a href="/courses/new" class="mh1 bw1 b--black-05 b--solid br2 flex items-center justify-center h2 w2 black-30 hover-blue hover-bg-black-10 pointer link">
