@@ -12,7 +12,13 @@
 
     </div>
 
-
+  <select onchange="window.location.assign(value)">
+    <%= for val <- [10,20,40,100] do %>
+      <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
+      <% selected = uri_params_equal?(url, @conn.query_string) %>
+      <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
+    <% end %>
+  </select>
 
 
   </div>
@@ -22,11 +28,10 @@
         <tr height="30" class="brand-accent f7 fw6">
           <td width=24></td>
           <td width=64></td>
-          <td width=64>ID</td>
-          <td>NAME</td>
-          <td align="center">ATTENDANCE</td>
+          <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "id"})%>" onclick="window.location.assign(this.dataset.sort)">ID</td>
+          <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
           <td>AVERAGE GRADE</td>
-          <td align="center">ACTIVITIES SUBMITTED</td>
+          <td align="center">ACTIVITIES GRADED</td>
           <td width=32></td>
           <td width=32></td>
         </tr>
@@ -40,7 +45,7 @@
           <td align="center">
             <div
               class="w2 h2 br-100 flex justify-center items-center white-60 f6 fw6"
-              style='background: #<%= AlchemicAvatar.Color.iwanthue(student.first_name <> student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
+              style='background: #<%= AlchemicAvatar.Color.google(student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
               >
             <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
             </div>
@@ -52,16 +57,16 @@
             <span class="black-70 pr4 fw5"><%= student.first_name %> <%= student.last_name %></span>
             <% end %>
           </td>
-          <td align="center">
-            <%= Enum.random(60..90) %>%
-          </td>
+          <%# <td align="center">
+            percent
+          </td> %>
           <td>
             <div class="w4 bg-black-10 br3">
               <div class="bg-green br3" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
             </div>
           </td>
           <td align="center">
-            <%= Enum.random(60..90) %>%
+            <%= Enum.random(2..6) %>/7
           </td>
           <td>
             <%= link to: Routes.student_path(@conn, :edit, student) do %>
@@ -78,11 +83,11 @@
         <% end %>
       </tbody>
     </table>
-
     <div class="flex brand-light w4 h2 ba br2 items-center justify-between mt3">
-      <a href="?page=<%= @page_number - 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
+
+      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
       <span class=""><%= @page_number %> of <%= @total_pages %></span>
-      <a href="?page=<%= @page_number + 1%>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
+      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
     </div>
 
   </div>

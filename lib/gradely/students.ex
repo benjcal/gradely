@@ -23,7 +23,9 @@ defmodule Gradely.Students do
 
 
   def get_page(params) do
-    Repo.paginate(Student, params)
+    Student
+    |> order_by(asc: :first_name)
+    |> Repo.paginate(params)
   end
 
   @doc """
