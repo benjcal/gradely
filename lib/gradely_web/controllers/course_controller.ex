@@ -5,7 +5,7 @@ defmodule GradelyWeb.CourseController do
   alias Gradely.Courses.Course
 
   def index(conn, params) do
-    page = Courses.get_page(params)
+    page = Courses.get_page(conn, params)
     render(conn, "index.html",
       courses: page.entries,
       page_number: page.page_number,
@@ -28,7 +28,7 @@ defmodule GradelyWeb.CourseController do
       {:ok, course} ->
         conn
         |> put_flash(:info, "Course created successfully.")
-        |> redirect(to: Routes.course_path(conn, :show, course))
+        |> redirect(to: Routes.course_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

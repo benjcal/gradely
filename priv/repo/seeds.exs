@@ -12,7 +12,8 @@
 alias Pow.Ecto.Schema.Password
 
 users = [
-  %{email: "a", password: "b"},
+	%{email: "a", password: "a"},
+	%{email: "b", password: "b"},
 ]
 
 create_user = fn user ->
@@ -41,8 +42,8 @@ enroll_student = fn (student, courses) ->
 	Gradely.Enrollments.enroll_student(student, courses)
 end
 
-students =  Enum.map(1001..1073, create_student)
-courses =  Enum.map(0..10, create_course)
+# students =  Enum.map(1001..1003, create_student)
+# courses =  Enum.map(0..10, create_course)
 
 
-Enum.each(students, fn student -> enroll_student.(student, courses) end)
+# Enum.each(students, fn student -> enroll_student.(student, courses) end)

@@ -3,9 +3,10 @@ defmodule GradelyWeb.StudentController do
 
   alias Gradely.Students
   alias Gradely.Students.Student
+  alias Gradely.Courses
 
   def index(conn, params) do
-    page = Students.get_page(params)
+    page = Students.get_page(conn, params)
     render(conn, "index.html",
       students: page.entries,
       page_number: page.page_number,
@@ -17,14 +18,19 @@ defmodule GradelyWeb.StudentController do
 
   def new(conn, _params) do
     changeset = Students.change_student(%Student{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html",
+      changeset: changeset,
+      courses: Gradely.Courses.list_courses(conn)
+    )
   end
 
   def create(conn, params) do
     %{"student" => student_params} = params
+    courses_to_enroll = Courses.get_courses_from_params(params["courses"])
+
     student_params = Map.put(student_params, :user, conn.assigns.current_user)
-    case Students.create_student(student_params) do
-      {:ok, student} ->
+    case Students.create_student_enroll(student_params, courses_to_enroll) do
+      {:ok, _student} ->
         conn
         |> put_flash(:info, "Student created successfully.")
         |> redirect(to: Routes.student_path(conn, :index))
@@ -49,7 +55,7 @@ defmodule GradelyWeb.StudentController do
     student = Students.get_student!(id)
 
     case Students.update_student(student, student_params) do
-      {:ok, student} ->
+      {:ok, _student} ->
         conn
         |> put_flash(:info, "Student updated successfully.")
         |> redirect(to: Routes.student_path(conn, :index))

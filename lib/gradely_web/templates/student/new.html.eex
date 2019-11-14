@@ -2,7 +2,7 @@
   <div class="<%= container_class %>">
 
     <div class="<%= container_header_class %> ">
-      <div class="flex-auto flex items-center h3">
+      <div class="flex-auto flex items-center">
         <i class="material-icons mr1" style="font-size: 32px;">face</i>
         <span class="f3 mh1 brand-dark">New Student</span>
       </div>
@@ -34,6 +34,17 @@
       <%= text_input f, :last_name %>
       <%= error_tag f, :last_name %>
       <br /><br />
+
+      <details>
+        <summary>Enroll</summary>
+        <ul>
+          <%= for course <- @courses do %>
+          <li>
+            <input type="checkbox" name=courses[<%= course.id %>]> <%= course.name %>
+          </li>
+          <% end %>
+        </ul>
+      </details>
 
       <div class="flex">
         <%= link "Back", to: Routes.student_path(@conn, :index), class: button_class(:gray) <> " " <> "mr2" %>
