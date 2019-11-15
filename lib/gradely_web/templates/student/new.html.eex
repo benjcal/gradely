@@ -18,27 +18,18 @@
     <% end %>
 
 
-
-      <%= label f, :number, class: label_class() %>
-      <br />
-      <%= text_input f, :number, placeholder: "i.e. U0001" %>
-      <%= error_tag f, :number %>
-      <br /><br />
-
-      <%= label f, :first_name, class: label_class() %>
-      <br />
-      <%= text_input f, :first_name %>
+      <%= label f, :first_name, class: "block text-gray-700 font-bold mb-2" %>
+      <%= text_input f, :first_name, class: "h-8 p-2 bg-gray-200 rounded text-gray-700 border-2 border-transparent focus:border-gray-400 focus:bg-white" %>
       <%= error_tag f, :first_name %>
-      <br /><br />
-
-      <%= label f, :last_name , class: label_class()  %>
       <br />
-      <%= text_input f, :last_name %>
+
+      <%= label f, :last_name , class: "block text-gray-700 font-bold mb-2"  %>
+      <%= text_input f, :last_name, class: "h-8 p-2 bg-gray-200 rounded text-gray-700 border-2 border-transparent focus:border-gray-400 focus:bg-white" %>
       <%= error_tag f, :last_name %>
       <br /><br />
 
-      <details>
-        <summary>Enroll</summary>
+      <details class="block w-64 shadow rounded px-4">
+        <summary class="h-8 pt-1 text-gray-700 font-bold">Enroll</summary>
         <ul>
           <%= for course <- @courses do %>
           <li>
@@ -49,8 +40,8 @@
       </details>
 
       <div class="flex">
-        <%= link "Back", to: Routes.student_path(@conn, :index), class: button_class(:gray) <> " " <> "mr2" %>
-        <%= submit "Save", class: button_class(:green) %>
+        <%= link "Back", to: Routes.student_path(@conn, :index), class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-gray-700" %>
+        <%= submit "Save", class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-green-600" %>
       </div>
     <% end %>
 

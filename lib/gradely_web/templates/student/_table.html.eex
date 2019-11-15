@@ -11,7 +11,7 @@
 
           <td></td>
 
-          <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "id"})%>" onclick="window.location.assign(this.dataset.sort)">ID</td>
+
           <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
           <td>AVERAGE GRADE</td>
           <td>ACTIVITIES GRADED</td>
@@ -33,7 +33,7 @@
             </div>
           </td>
 
-          <td><%= student.number %></td>
+
 
           <td>
             <span class="black-70 pr4 fw5"><%= "#{student.first_name} #{student.last_name}" %></span>
