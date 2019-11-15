@@ -1,6 +1,11 @@
-<div class="flex brand-light w4 h2 ba br2 items-center justify-between mt3">
+<div class="w-40 h-8 mt-4 flex items-center justify-between bg-gray-100 text-gray-700 border border-solid rounded">
+  <a class="pt-2" href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>">
+    <i class="material-icons">chevron_left</i>
+  </a>
 
-      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
-      <span class=""><%= @page_number %> of <%= @total_pages %></span>
-      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
-    </div>
+  <span><%= @page_number %> of <%= @total_pages %></span>
+
+  <a class="pt-2" href="<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>">
+    <i class="material-icons">chevron_right</i>
+  </a>
+</div>
