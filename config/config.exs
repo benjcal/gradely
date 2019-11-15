@@ -31,4 +31,5 @@ import_config "#{Mix.env()}.exs"
 
 config :gradely, :pow,
   user: Gradely.Users.User,
-  repo: Gradely.Repo
+  repo: Gradely.Repo,
+  web_module: GradelyWeb
