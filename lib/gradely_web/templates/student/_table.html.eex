@@ -7,7 +7,7 @@
 
 <table class="w-full">
       <thead>
-        <tr height="30" class="text-xs text-red-800">
+        <tr height="30" class="text-xs text-red-800 font-semibold">
 
           <td></td>
 
@@ -20,7 +20,7 @@
 
       <tbody>
         <%= for student <- @students do %>
-        <tr height="42" class="text-gray-700 hover:bg-gray-200 cursor-pointer"
+        <tr height="42" class="text-gray-700 hover:bg-gray-300 cursor-pointer"
           onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
         >
 

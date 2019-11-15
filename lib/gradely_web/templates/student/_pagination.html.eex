@@ -1,4 +1,4 @@
-<div class="w-40 h-8 mt-4 flex items-center justify-between bg-gray-100 text-gray-700 border border-solid rounded">
+<div class="w-40 h-8 mt-4 flex items-center justify-between text-gray-700 border border border-transparent hover:border-gray-400 rounded shadow">
   <a class="pt-2" href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>">
     <i class="material-icons">chevron_left</i>
   </a>
