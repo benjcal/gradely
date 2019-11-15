@@ -1,4 +1,4 @@
-<div class="ma3 pv3 ph4 br2 bg-white shadow-4">
+<div class="m-3 p-4 rounded bg-white shadow">
 
   <%= render "_header.html", assigns %>
 

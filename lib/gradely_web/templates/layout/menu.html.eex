@@ -1,6 +1,6 @@
 <%# Classes and helper function for selected menu %>
 <%
-  icon_link_class = "material-icons my-10 hover:text-gray-300"
+  icon_link_class = "my-10 hover:text-gray-300"
 
   icon_class = fn (x) ->
     if Enum.at(@conn.path_info, 0) == x do
@@ -13,32 +13,41 @@
 
 <div class="flex flex-col items-center w-16 h-full bg-gray-700">
 
-  <%= link to: Routes.page_path(@conn, :index) do %>
-    <img class="w-10 mt-3" src="/images/logo.png" alt="logo">
-  <% end %>
+  <span class="w-10 pt-3">
+    <%= link to: Routes.page_path(@conn, :index) do %>
+      <img src="/images/logo.png" alt="logo">
+    <% end %>
+  </span>
 
   <div class="flex flex-col flex-auto items-center mt-10">
-    <%= link to: Routes.student_path(@conn, :index) do %>
-      <i class="<%= icon_class.("students") %>">face</i>
-    <% end %>
+    <span class="<%= icon_class.("students") %>">
+      <%= link to: Routes.student_path(@conn, :index) do %>
+        <i class="material-icons">face</i>
+      <% end %>
+    </span>
 
-    <%= link to: Routes.course_path(@conn, :index) do %>
-      <i class="<%= icon_class.("courses")  %>">book</i>
-    <% end %>
 
-    <%= link to: Routes.activity_path(@conn, :index) do %>
-      <i class="<%= icon_class.("activities") %>">assignment</i>
-    <% end %>
+
+    <span class="<%= icon_class.("courses") %>">
+      <%= link to: Routes.course_path(@conn, :index) do %>
+        <i class="material-icons">book</i>
+      <% end %>
+    </span>
+
+    <span class="<%= icon_class.("activities") %>">
+      <%= link to: Routes.activity_path(@conn, :index) do %>
+        <i class="material-icons">assignment</i>
+      <% end %>
+    </span>
+
   </div>
 
   <div class="flex flex-col items-center">
-    <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
-      <i class="<%= icon_class.("") %>">exit_to_app</i>
-    <% end %>
+    <div class="<%= icon_class.("") %>">
+      <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+        <i class="material-icons">exit_to_app</i>
+      <% end %>
+    </div>
   </div>
-
-</div>
-
-
 
 </div>
