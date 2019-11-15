@@ -36,7 +36,10 @@ defmodule GradelyWeb.StudentController do
         |> redirect(to: Routes.student_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html",
+        changeset: changeset,
+        courses: Gradely.Courses.list_courses(conn)
+        )
     end
   end
 
