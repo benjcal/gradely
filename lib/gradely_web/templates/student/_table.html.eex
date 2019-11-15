@@ -1,59 +1,60 @@
-<table class="w-100 mt2">
+<% color = fn x ->
+    AlchemicAvatar.Color.iwanthue(x)
+    |> Enum.map(fn c -> Integer.to_string(c, 16) end )
+    |> Enum.join("")
+  end
+%>
+
+<table class="w-full">
       <thead>
-        <tr height="30" class="brand-accent f7 fw6">
-          <td width=24></td>
-          <td width=64></td>
+        <tr height="30" class="text-xs text-red-800">
+
+          <td></td>
+
           <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "id"})%>" onclick="window.location.assign(this.dataset.sort)">ID</td>
           <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
           <td>AVERAGE GRADE</td>
-          <td align="center">ACTIVITIES GRADED</td>
-          <td width=32></td>
-          <td width=32></td>
+          <td>ACTIVITIES GRADED</td>
         </tr>
       </thead>
 
       <tbody>
         <%= for student <- @students do %>
-        <tr height="42" class="brand-light hover-bg-black-10">
+        <tr height="42" class="text-gray-700 hover:bg-gray-200 cursor-pointer"
+          onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
+        >
 
-          <td align="center"><input type="checkbox"></td>
           <td align="center">
             <div
-              class="w2 h2 br-100 flex justify-center items-center white-60 f6 fw6"
-              style='background: #<%= AlchemicAvatar.Color.google(student.last_name) |> Enum.map(fn c -> Integer.to_string(c, 16) end ) |> Enum.join("") %>'
-              >
-            <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
+              class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 font-semibold"
+              style="background: #<%= color.(student.first_name <> student.last_name)%>"
+            >
+              <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
             </div>
           </td>
+
           <td><%= student.number %></td>
 
           <td>
-            <%= link to: Routes.student_path(@conn, :show, student), class: "link" do %>
-            <span class="black-70 pr4 fw5"><%= student.first_name %> <%= student.last_name %></span>
-            <% end %>
+            <span class="black-70 pr4 fw5"><%= "#{student.first_name} #{student.last_name}" %></span>
           </td>
-          <%# <td align="center">
-            percent
-          </td> %>
+
           <td>
-            <div class="w4 bg-black-10 br3">
-              <div class="bg-green br3" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
+            <div class="w-32 bg-gray-300 rounded">
+              <div class="w-32 bg-green-400 rounded" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
             </div>
           </td>
-          <td align="center">
+          <td>
             <%= Enum.random(2..6) %>/7
           </td>
           <td>
             <%= link to: Routes.student_path(@conn, :edit, student) do %>
-            <span class="brand-light"><i class="material-icons" style="font-size: 16px">edit</i></span>
+              <span class="brand-light"><i class="material-icons" style="font-size: 16px">edit</i></span>
             <% end %>
-          </td>
-          <td >
             <%= link to: Routes.student_path(@conn, :delete, student), method: :delete, data: [confirm: "Are you sure?"]  do %>
-            <span class="brand-light"><i class="material-icons" style="font-size: 16px">delete</i></span>
+              <span class="brand-light"><i class="material-icons" style="font-size: 16px">delete</i></span>
             <% end %>
           </td>
-
         </tr>
         <% end %>
       </tbody>
