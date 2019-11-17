@@ -1,6 +1,7 @@
 defmodule Gradely.Students do
   import Ecto.Query, warn: false
   alias Gradely.Repo
+  alias Gradely.Users
 
   alias Gradely.Students.Student
 
@@ -11,6 +12,8 @@ defmodule Gradely.Students do
       "name" -> :first_name
       _ -> :id
     end
+
+    Users.update_preferences(conn.assigns.current_user, %{student_table_sort: "name"})
 
     Student
     |> order_by(asc: ^sort)

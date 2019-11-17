@@ -15,13 +15,12 @@ defmodule Gradely.Users.Preferences do
   import Ecto.Changeset
 
   embedded_schema do
-    field :sample, :string
+    field :student_table_sort, :string
   end
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:sample])
-    |> validate_required([:sample])
+    |> cast(attrs, [:student_table_sort])
   end
 end
