@@ -4,7 +4,7 @@ defmodule Gradely.Users.User do
 
   schema "users" do
     pow_user_fields()
-    embeds_one :preferences, Gradely.Users.Preferences, on_replace: :delete
+    embeds_one :preferences, Gradely.Users.Preferences
 
     timestamps()
   end
