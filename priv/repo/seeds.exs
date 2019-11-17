@@ -25,6 +25,11 @@ create_user = fn user ->
  	|> Gradely.Repo.insert!
 end
 
+
+
+
+
+
 users = Enum.map(users, create_user)
 
 create_student = fn _ ->
@@ -41,6 +46,17 @@ end
 enroll_student = fn (student, courses) ->
 	Gradely.Enrollments.enroll_student(student, courses)
 end
+
+ll = fn () ->
+	Gradely.Users.get_user!(1)
+	|> Ecto.Changeset.change
+	|> Ecto.Changeset.put_embed(:preferences, %{sample: "111"})
+ 	|> Gradely.Repo.update!
+end
+
+ll.()
+
+
 
 students =  Enum.map(0..32, create_student)
 courses =  Enum.map(0..18, create_course)
