@@ -1,26 +1,61 @@
-<h1>Show Student</h1>
+<% color = fn x ->
+    AlchemicAvatar.Color.iwanthue(x)
+    |> Enum.map(fn c -> Integer.to_string(c, 16) end )
+    |> Enum.join("")
+  end
+%>
 
-<ul>
+<div class="m-3 p-4 rounded bg-white shadow">
 
-  <li>
-    <strong>First name:</strong>
-    <%= @student.first_name %>
-  </li>
+  <div role=header class="flex pb-1 border-b border-solid">
+    <div class="flex-auto flex items-center text-gray-700">
+      <i class="material-icons mr-4" style="font-size: 34px">face</i>
+      <span class="text-2xl mr-4">Show Student</span>
+    </div>
+  </div>
 
-  <li>
-    <strong>Last name:</strong>
-    <%= @student.last_name %>
-  </li>
+  <div role=body class="flex ">
+    <div role=left class="w-64">
+      <div
+        class="w-32 h-32 flex justify-center items-center rounded-full text-gray-100 text-4xl font-semibold"
+        style="background: #<%= color.(@student.first_name <> @student.last_name)%>"
+      >
+        <%= String.at(@student.first_name, 0) <> String.at(@student.last_name, 0) %>
+      </div>
 
-</ul>
+      <div class="w-64 shadow rounded p-4 pt-0">
+        <span class="h-8 text-gray-700 font-bold">Enrolled Courses</span>
+        <div class="h-64 overflow-y-auto">
+          <ul>
+            <%= for course <- @student.courses do %>
+            <li>
+              <%= course.name %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-<h2>Courses Enrolled</h2>
+    </div>
 
-<ul>
-  <%= for course <- @student.courses do %>
-    <li><%= course.name %></li>
-  <% end %>
-</ul>
+    <div role=right class="">
+      <span class="text-2xl"><%= @student.first_name %> <%= @student.last_name %></span>
+    </div>
 
-<span><%= link "Edit", to: Routes.student_path(@conn, :edit, @student) %></span>
-<span><%= link "Back", to: Routes.student_path(@conn, :index) %></span>
+  </div>
+  <div class="flex">
+    <%= link "Back", to: Routes.student_path(@conn, :index), class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-gray-700" %>
+    <%= link "Edit", to: Routes.student_path(@conn, :edit, @student), class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-gray-700" %>
+    <%= link "Delete", to: Routes.student_path(@conn, :delete, @student), method: :delete, data: [confirm: "Are you sure?"], class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-gray-700"  %>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
