@@ -51,13 +51,19 @@ defmodule GradelyWeb.StudentController do
   def edit(conn, %{"id" => id}) do
     student = Students.get_student!(id)
     changeset = Students.change_student(student)
-    render(conn, "edit.html", student: student, changeset: changeset)
+    render(conn, "edit.html", student: student,
+    changeset: changeset,
+    courses: Gradely.Courses.list_courses(conn)
+    )
   end
 
-  def update(conn, %{"id" => id, "student" => student_params}) do
-    student = Students.get_student!(id)
+  def update(conn, params) do
+    %{"id" => id, "student" => student_params} = params
 
-    case Students.update_student(student, student_params) do
+    student = Students.get_student!(id)
+    courses_to_enroll = Courses.get_courses_from_params(params["courses"])
+
+    case Students.update_student(student, student_params, courses_to_enroll) do
       {:ok, _student} ->
         conn
         |> put_flash(:info, "Student updated successfully.")

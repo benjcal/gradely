@@ -38,9 +38,10 @@ defmodule Gradely.Students do
     |> Repo.insert()
   end
 
-  def update_student(%Student{} = student, attrs) do
+  def update_student(%Student{} = student, attrs, courses) do
     student
     |> Student.changeset_edit(attrs)
+    |> Ecto.Changeset.put_assoc(:courses, courses)
     |> Repo.update()
   end
 
