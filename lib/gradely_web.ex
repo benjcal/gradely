@@ -45,6 +45,7 @@ defmodule GradelyWeb do
 
       import GradelyWeb.Styles
       import GradelyWeb.URIHelpers
+      import GradelyWeb.Components
     end
   end
 
