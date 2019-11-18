@@ -1,53 +1,32 @@
-<div>
-  <div class="<%= container_class() %>">
+<%= c :container, assigns do %>
+  <% header_params = %{icon: "book", text: "Courses", new_link: Routes.course_path(@conn, :new), per_page: true} %>
+  <%= c :container_header, Map.merge(assigns, header_params) %>
 
-  <div class="<%= container_header_class() %>">
-    <div class="flex-auto flex items-center pb2">
-      <i class="material-icons mr1" style="font-size: 32px;">book</i>
-      <span class="f3 mh1 brand-dark">Coursess</span>
+  <%= c :table, assigns do %>
 
-      <a href="/courses/new" class="mh1 bw1 b--black-05 b--solid br2 flex items-center justify-center h2 w2 black-30 hover-blue hover-bg-black-10 pointer link">
-        <i class="material-icons" style="font-size: 18px;">add</i>
-      </a>
-
-    </div>
-
-  <select onchange="window.location.assign(value)">
-    <%= for val <- [10,20,40,100] do %>
-      <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
-      <% selected = uri_params_equal?(url, @conn.query_string) %>
-      <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
+    <%= c :table_header, assigns do %>
+      <td width=32></td>
+      <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
+      <td>AVERAGE GRADE</td>
+      <td align="center">ACTIVITIES GRADED</td>
+      <td width=32></td>
+      <td width=32></td>
     <% end %>
-  </select>
 
-
-  </div>
-
-    <table class="w-100 mt2">
-      <thead>
-        <tr height="30" class="brand-accent f7 fw6">
-          <td width=32></td>
-          <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
-          <td>AVERAGE GRADE</td>
-          <td align="center">ACTIVITIES GRADED</td>
-          <td width=32></td>
-          <td width=32></td>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <%= for course <- @courses do %>
-        <tr height="42" class="brand-light hover-bg-black-10">
+    <%= c :table_body, assigns do %>
+      <%= for course <- @courses do %>
+        <tr
+          height="42"
+          class="text-gray-700 hover:bg-gray-300 cursor-pointer"
+          onclick="window.location.assign('<%=Routes.course_path(@conn, :show, course)%>')"
+        >
 
           <td align="center"><input type="checkbox"></td>
-
           <td>
             <%= link to: Routes.course_path(@conn, :show, course), class: "link" do %>
             <span class="black-70 pr4 fw5"><%= course.name %></span>
             <% end %>
           </td>
-
           <td>
             <div class="w4 bg-black-10 br3">
               <div class="bg-green br3" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
@@ -66,17 +45,11 @@
             <span class="brand-light"><i class="material-icons" style="font-size: 16px">delete</i></span>
             <% end %>
           </td>
-
         </tr>
         <% end %>
-      </tbody>
-    </table>
-    <div class="flex brand-light w4 h2 ba br2 items-center justify-between mt3">
+    <% end %>
+  <% end %>
 
-      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_left</i></a>
-      <span class=""><%= @page_number %> of <%= @total_pages %></span>
-      <a href="<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>" class="brand-light pt1 w2"><i class="material-icons">chevron_right</i></a>
-    </div>
+  <%= c :pagination, assigns %>
 
-  </div>
-</div>
+<% end %>

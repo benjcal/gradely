@@ -13,7 +13,7 @@ defmodule Gradely.Students do
       _ -> :id
     end
 
-    Users.update_preferences(conn.assigns.current_user, %{student_table_sort: "name"})
+    # Users.update_preferences(conn.assigns.current_user, %{student_table_sort: "name"})
 
     Student
     |> order_by(asc: ^sort)
