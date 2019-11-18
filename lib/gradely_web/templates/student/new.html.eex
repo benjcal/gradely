@@ -1,12 +1,9 @@
-<div class="m-3 p-4 rounded bg-white shadow">
+<%= c :container, assigns do %>
+
+  <% header_params = %{text: "New Student", icon: "face"} %>
+  <%= c :container_header, Map.merge(assigns, header_params) %>
 
 
-  <div class="flex pb-1 border-b border-solid">
-    <div class="flex-auto flex items-center text-gray-700">
-      <i class="material-icons mr-4" style="font-size: 34px">face</i>
-      <span class="text-2xl mr-4">New Student</span>
-    </div>
-  </div>
 
   <div class="flex">
 
@@ -47,8 +44,8 @@
 
 
     <div class="flex -mt-8">
-      <%= link "Back", to: Routes.student_path(@conn, :index), class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-gray-700" %>
-      <%= submit "Save", class: "h-8 w-24 flex items-center justify-center shadow rounded border border-transparent hover:border-gray-400 text-gray-400 font-bold hover:text-green-600" %>
+      <%= c :link_button, Map.merge(assigns, %{text: "Back", to: Routes.student_path(@conn, :index)}) %>
+      <%= c :submit_button, Map.merge(assigns, %{text: "Save"}) %>
     </div>
 
 
@@ -57,9 +54,7 @@
 
 
 
-
-
-</div>
+<% end %>
 
 
 

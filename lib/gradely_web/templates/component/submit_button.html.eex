@@ -1,0 +1,1 @@
+<%= submit "Save", class: button_classes() %>

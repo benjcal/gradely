@@ -1,0 +1,1 @@
+<%= link assigns.text, to: assigns.to, class: button_classes() %>
