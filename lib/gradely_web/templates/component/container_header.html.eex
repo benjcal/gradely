@@ -1,0 +1,29 @@
+<div class="flex pb-1 border-b border-solid">
+
+  <div class="flex-auto flex items-center text-gray-700">
+    <i class="material-icons mr-4" style="font-size: 34px"><%= assigns.icon %></i>
+    <span class="text-2xl mr-4"><%= assigns.text %></span>
+
+    <%= link to: assigns.new_link, class: "w-8 h-8 mr-4 flex items-center justify-center rounded border border-transparent hover:border-gray-400 shadow" do %>
+      <i class="material-icons" style="font-size: 18px;">add</i>
+    <% end %>
+  </div>
+
+  <div>
+
+    <div class="inline-block relative w-20 text-gray-700">
+      <select class="block appearance-none w-full px-4 h-8 rounded bg-white border border-transparent hover:border-gray-400 shadow cursor-pointer" onchange="window.location.assign(value)">
+        <%= for val <- [10,20,40,100] do %>
+          <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
+          <% selected = uri_params_equal?(url, @conn.query_string) %>
+          <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
+        <% end %>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+      </div>
+    </div>
+
+  </div>
+
+</div>

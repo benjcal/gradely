@@ -1,5 +1,3 @@
-<h1>from table</h1>
-
-<div class="bg-green-300">
-  <%= assigns[:do] %>
-</div>
+<table class="w-full">
+  <%= assigns.content %>
+</table>

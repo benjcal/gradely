@@ -1,0 +1,3 @@
+<tbody>
+  <%= assigns.content %>
+</tbody>

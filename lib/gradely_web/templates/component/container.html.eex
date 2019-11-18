@@ -1,0 +1,3 @@
+<div class="m-3 p-4 rounded bg-white shadow">
+  <%= assigns.content %>
+</div>

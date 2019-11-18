@@ -1,0 +1,5 @@
+<thead>
+  <tr height="30" class="text-xs text-red-800 font-semibold">
+    <%= assigns.content %>
+  </tr>
+</thead>
