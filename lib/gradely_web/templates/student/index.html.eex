@@ -1,5 +1,5 @@
 <%= c :container, assigns do %>
-  <% header_params = %{icon: "face", text: "Students", new_link: Routes.student_path(@conn, :new)} %>
+  <% header_params = %{icon: "face", text: "Students", new_link: Routes.student_path(@conn, :new), per_page: true} %>
   <%= c :container_header, Map.merge(assigns, header_params) %>
 
   <%= c :table, assigns do %>

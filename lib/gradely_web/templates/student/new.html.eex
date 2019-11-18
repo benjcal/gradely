@@ -48,12 +48,7 @@
       <%= c :submit_button, Map.merge(assigns, %{text: "Save"}) %>
     </div>
 
-
-
     <% end %>
-
-
-
 <% end %>
 
 
