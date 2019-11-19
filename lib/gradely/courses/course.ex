@@ -8,6 +8,7 @@ defmodule Gradely.Courses.Course do
     field :name, :string
     many_to_many :students, Gradely.Students.Student,
       join_through: Gradely.Enrollments.Enrollment
+    has_many :activities, Gradely.Activities.Activity
 
     timestamps()
   end

@@ -10,4 +10,10 @@ defmodule GradelyWeb.StudentView do
     |> Enum.map(fn c -> Integer.to_string(c, 16) end )
     |> Enum.join("")
   end
+
+  def all_activities(courses) do
+    courses
+    |> Enum.map(fn c -> c.activities end)
+    |> List.flatten
+  end
 end

@@ -19,6 +19,7 @@ defmodule Gradely.Courses do
   def get_courses(ids) do
     query = from c in Course, where: c.id in ^ids, select: c
     Repo.all(query)
+    |> Repo.preload(:activities)
   end
 
   def get_page(conn, params) do
@@ -35,7 +36,10 @@ defmodule Gradely.Courses do
     |> Repo.paginate(params)
   end
 
-  def get_course!(id), do: Repo.get!(Course, id)
+  def get_course!(id) do
+    Repo.get!(Course, id)
+    |> Repo.preload(:activities)
+  end
 
   def create_course(attrs \\ %{}) do
     %Course{}

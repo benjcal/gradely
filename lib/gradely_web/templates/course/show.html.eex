@@ -4,6 +4,12 @@
 
   <div class="text-2xl text-gray-700"><%= @course.name %></div>
 
+  <div class="text-xl text-gray-700">Activities</div>
+
+  <%= for activity <- @course.activities do %>
+    <p><%= activity.name %></p>
+  <% end %>
+
   <%= c :link_button, Map.merge(assigns, %{text: "Add Activity", to: Routes.course_activity_path(@conn, :new, @course)} )%>
 
 <% end %>

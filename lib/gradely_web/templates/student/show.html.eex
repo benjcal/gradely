@@ -26,6 +26,13 @@
     </div>
   </div>
 
+
+  <ul>
+    <%= for activity <- all_activities(@student.courses) do %>
+    <li><%= activity.name %></li>
+    <% end %>
+  </ul>
+
   <div class="flex">
     <%= c :link_button, Map.merge(assigns, %{text: "Back", to: Routes.student_path(@conn, :index)} ) %>
     <%= c :link_button, Map.merge(assigns, %{text: "Edit", to: Routes.student_path(@conn, :edit, @student)} ) %>

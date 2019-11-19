@@ -24,6 +24,7 @@ defmodule Gradely.Students do
   def get_student!(id) do
     Repo.get!(Student, id)
     |> Repo.preload(:courses)
+    |> Repo.preload([courses: :activities])
   end
 
   def get_student_clean!(id), do: Repo.get!(Student, id)
