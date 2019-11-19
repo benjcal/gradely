@@ -6,6 +6,7 @@ defmodule Gradely.Activities.Activity do
     field :name, :string
     belongs_to :course, Gradely.Courses.Course
     belongs_to :user, Gradely.Users.User
+    has_one :grade, Gradely.Grades.Grade
 
     timestamps()
   end

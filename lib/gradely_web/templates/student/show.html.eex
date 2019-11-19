@@ -29,7 +29,7 @@
 
   <ul>
     <%= for activity <- all_activities(@student.courses) do %>
-    <li><%= activity.name %></li>
+    <li><%= activity.name %> | <%= activity.grade.grade %></li>
     <% end %>
   </ul>
 

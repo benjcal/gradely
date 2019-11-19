@@ -4,6 +4,9 @@ defmodule Gradely.Grades.Grade do
 
   schema "grades" do
     belongs_to :user, Gradely.Users.User
+    belongs_to :student, Gradely.Students.Student
+    belongs_to :activity, Gradely.Activities.Activity
+    field :grade, :float
 
     timestamps()
   end
