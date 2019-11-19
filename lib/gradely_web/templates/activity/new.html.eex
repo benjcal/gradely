@@ -1,5 +1,21 @@
 <h1>New Activity</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.activity_path(@conn, :create)) %>
+<%= form_for @changeset, Routes.course_activity_path(@conn, :create, @course), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
 
-<span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+
+
+

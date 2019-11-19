@@ -1,13 +1,10 @@
-<h1>Show Course</h1>
+<%= c :container, assigns do %>
+  <% header_params = %{icon: "book", text: "Show Course"} %>
+  <%= c :container_header, Map.merge(assigns, header_params) %>
 
-<ul>
+  <div class="text-2xl text-gray-700"><%= @course.name %></div>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @course.name %>
-  </li>
+  <%= c :link_button, Map.merge(assigns, %{text: "Add Activity", to: Routes.course_activity_path(@conn, :new, @course)} )%>
 
-</ul>
+<% end %>
 
-<span><%= link "Edit", to: Routes.course_path(@conn, :edit, @course) %></span>
-<span><%= link "Back", to: Routes.course_path(@conn, :index) %></span>

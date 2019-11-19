@@ -5,12 +5,9 @@
   <%= c :table, assigns do %>
 
     <%= c :table_header, assigns do %>
-      <td width=32></td>
       <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
       <td>AVERAGE GRADE</td>
       <td align="center">ACTIVITIES GRADED</td>
-      <td width=32></td>
-      <td width=32></td>
     <% end %>
 
     <%= c :table_body, assigns do %>
@@ -20,8 +17,6 @@
           class="text-gray-700 hover:bg-gray-300 cursor-pointer"
           onclick="window.location.assign('<%=Routes.course_path(@conn, :show, course)%>')"
         >
-
-          <td align="center"><input type="checkbox"></td>
           <td>
             <%= link to: Routes.course_path(@conn, :show, course), class: "link" do %>
             <span class="black-70 pr4 fw5"><%= course.name %></span>
@@ -35,19 +30,10 @@
           <td align="center">
             <%= Enum.random(2..6) %>/7
           </td>
-          <td>
-            <%= link to: Routes.course_path(@conn, :edit, course) do %>
-            <span class="brand-light"><i class="material-icons" style="font-size: 16px">edit</i></span>
-            <% end %>
-          </td>
-          <td >
-            <%= link to: Routes.course_path(@conn, :delete, course), method: :delete, data: [confirm: "Are you sure?"]  do %>
-            <span class="brand-light"><i class="material-icons" style="font-size: 16px">delete</i></span>
-            <% end %>
-          </td>
         </tr>
         <% end %>
     <% end %>
+
   <% end %>
 
   <%= c :pagination, assigns %>

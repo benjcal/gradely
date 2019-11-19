@@ -4,6 +4,7 @@ defmodule Gradely.Activities.Activity do
 
   schema "activities" do
     field :name, :string
+    belongs_to :course, Gradely.Courses.Course
     belongs_to :user, Gradely.Users.User
 
     timestamps()
@@ -12,7 +13,7 @@ defmodule Gradely.Activities.Activity do
   @doc false
   def changeset(activity, attrs) do
     activity
-    |> cast(attrs, [:name, :user_id])
-    |> validate_required([:name, :user_id])
+    |> cast(attrs, [:name, :course_id, :user_id])
+    |> validate_required([:name, :course_id, :user_id])
   end
 end

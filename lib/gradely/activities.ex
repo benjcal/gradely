@@ -50,6 +50,7 @@ defmodule Gradely.Activities do
 
   """
   def create_activity(attrs \\ %{}) do
+
     %Activity{}
     |> Activity.changeset(attrs)
     |> Repo.insert()
