@@ -14,7 +14,8 @@ defmodule GradelyWeb.GradeController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"grade" => grade_params}) do
+  def create(conn, params) do
+    %{"grade" => grade_params} = params
     case Grades.create_grade(grade_params) do
       {:ok, grade} ->
         conn

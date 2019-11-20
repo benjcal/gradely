@@ -14,7 +14,7 @@ defmodule Gradely.Grades.Grade do
   @doc false
   def changeset(grade, attrs) do
     grade
-    |> cast(attrs, [])
+    |> cast(attrs, [:user_id, :student_id, :activity_id, :grade])
     |> validate_required([])
   end
 end
