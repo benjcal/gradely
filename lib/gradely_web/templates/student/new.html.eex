@@ -1,3 +1,5 @@
+<div class="new">
+
 <%= c :container, assigns do %>
 
   <% header_params = %{text: "New Student", icon: "face"} %>
@@ -52,11 +54,5 @@
 <% end %>
 
 
-
-
-
-
-
-
-
+</div>
 

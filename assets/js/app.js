@@ -11,6 +11,8 @@ import "../css/app.css"
 //
 import "phoenix_html"
 
+import "unpoly/dist/unpoly.min.js"
+import "unpoly/dist/unpoly.min.css"
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:

@@ -2,6 +2,8 @@
   <% header_params = %{icon: "face", text: "Students", new_link: Routes.student_path(@conn, :new), per_page: true} %>
   <%= c :container_header, Map.merge(assigns, header_params) %>
 
+  <a href="/students/new" up-modal=".new">new modal</a>
+
   <%= c :table, assigns do %>
 
     <%= c :table_header, assigns do %>
