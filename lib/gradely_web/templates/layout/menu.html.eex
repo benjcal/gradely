@@ -4,9 +4,9 @@
 
   icon_class = fn (x) ->
     if Enum.at(@conn.path_info, 0) == x do
-      icon_link_class <> " text-gray-300"
+      icon_link_class
     else
-      icon_link_class <> " text-gray-600"
+      icon_link_class
     end
   end
 %>
@@ -20,24 +20,24 @@
   </span>
 
   <div class="flex flex-col flex-auto items-center mt-10">
-    <span class="<%= icon_class.("students") %>">
-      <%= link to: Routes.student_path(@conn, :index) do %>
+    <span class="my-10 text-gray-600 hover:text-gray-300" up-nav>
+      <a href="<%= Routes.student_path(@conn, :index) %>" up-target="#main">
         <i class="material-icons">face</i>
-      <% end %>
+      </a>
     </span>
 
 
 
-    <span class="<%= icon_class.("courses") %>">
-      <%= link to: Routes.course_path(@conn, :index) do %>
+    <span class="my-10 text-gray-600 hover:text-gray-300" up-nav>
+      <a href="<%= Routes.course_path(@conn, :index) %>" up-target="#main">
         <i class="material-icons">book</i>
-      <% end %>
+      </a>
     </span>
 
   </div>
 
   <div class="flex flex-col items-center">
-    <div class="<%= icon_class.("") %>">
+    <div class="my-10 text-gray-600 hover:text-gray-300">
       <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
         <i class="material-icons">exit_to_app</i>
       <% end %>

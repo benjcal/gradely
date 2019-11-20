@@ -13,6 +13,10 @@ html, body {
 	font-family: 'Titillium Web', sans-serif;
 }
 
+.up-current {
+	@apply text-gray-300;
+}
+
 /* table {
   border-collapse: collapse;
 }
