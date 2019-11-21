@@ -20,7 +20,7 @@ defmodule GradelyWeb.GradeController do
       {:ok, grade} ->
         conn
         |> put_flash(:info, "Grade created successfully.")
-        |> redirect(to: Routes.grade_path(conn, :show, grade))
+        |> redirect(to: Routes.student_path(conn, :show, grade_params["student_id"]))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
