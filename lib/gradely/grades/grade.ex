@@ -2,13 +2,11 @@ defmodule Gradely.Grades.Grade do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key false
   schema "grades" do
-    belongs_to :user, Gradely.Users.User
     belongs_to :student, Gradely.Students.Student
     belongs_to :activity, Gradely.Activities.Activity
-    field :grade, :float
-
-    timestamps()
+    field :value, :float
   end
 
   @doc false

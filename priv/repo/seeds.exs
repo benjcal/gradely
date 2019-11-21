@@ -9,48 +9,56 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias Pow.Ecto.Schema.Password
+defmodule Seeds do
+	alias Pow.Ecto.Schema.Password
 
-users = [
-	%{email: "a", password: "a"},
-	%{email: "b", password: "b"},
-]
+	@users [
+		%{email: "a", password: "a"},
+		%{email: "b", password: "b"}
+	]
 
-create_user = fn user ->
-  %Gradely.Users.User{
-    email: user.email,
-    password_hash: Password.pbkdf2_hash(user.password)
-  }
-	|> Ecto.Changeset.change
- 	|> Gradely.Repo.insert!
+	@students_num 10
+	@courses_num 8
+
+	def create_user(user) do
+		%Gradely.Users.User{
+			email: user.email,
+			password_hash: Password.pbkdf2_hash(user.password)
+		}
+		|> Ecto.Changeset.change
+		|> Gradely.Repo.insert!
+	end
+
+	def create_student(users) do
+		{:ok, student} = Gradely.Students.create_student(%{
+			first_name: Faker.Name.first_name,
+			last_name: Faker.Name.last_name,
+			user: Enum.at(users, Enum.random(0..(length(@users) -1)))}
+		)
+
+		student
+	end
+
+	def create_course(users) do
+		{:ok, course} = Gradely.Courses.create_course(%{
+			name: Enum.join([Faker.Industry.industry, Integer.to_string(Enum.random(101..500))], " "),
+			user: Enum.at(users, Enum.random(0..(length(@users) -1)))})
+		course
+	end
+
+	def enroll_student(student, courses) do
+		courses = Enum.take_random(courses, Enum.random(1..div(@courses_num, 2)))
+		Gradely.Enrollments.enroll_student(student, courses)
+	end
+
+	def run do
+		users = Enum.map(@users, &create_user/1)
+		students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
+		courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
+		Enum.each(students, fn student -> enroll_student(student, courses) end)
+	end
 end
 
 
+Seeds.run
 
-
-
-
-users = Enum.map(users, create_user)
-
-create_student = fn _ ->
-	{:ok, student} = Gradely.Students.create_student %{first_name: Faker.Name.first_name, last_name: Faker.Name.last_name, user: Enum.at(users, Enum.random(0..1))}
-	student
-end
-
-create_course = fn _ ->
-	{:ok, course} =
-		Gradely.Courses.create_course %{name: Enum.join([Faker.Industry.industry, Integer.to_string(Enum.random(101..500))], " "), user: Enum.at(users, Enum.random(0..1))}
-	course
-end
-
-enroll_student = fn (student, courses) ->
-	Gradely.Enrollments.enroll_student(student, courses)
-end
-
-
-
-# students =  Enum.map(0..32, create_student)
-# courses =  Enum.map(0..18, create_course)
-
-
-# Enum.each(students, fn student -> enroll_student.(student, courses) end)
