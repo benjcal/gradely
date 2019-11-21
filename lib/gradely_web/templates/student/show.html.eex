@@ -27,19 +27,21 @@
   </div>
 
 
+
   <table>
     <%= for activity <- all_activities(@student.courses) do %>
-      <% grade_id = if activity.grade, do: activity.grade.id, else: false %>
+      <% grade_id = if activity.grade, do: activity.grade.id, else: nil %>
       <% form_action = if grade_id, do: "/grades/#{grade_id}", else: "/grades" %>
-      <% form_method = if grade_id, do: "put", else: "post" %>
+
       <tr>
         <td><%= activity.name %></td>
         <td>
-          <form action="<%= form_action %>" method="<%= form_method %>">
-            <% if grade_id do %>
+          <form class="gradess" action="<%= form_action %>" method="post">
+            <input id="<%= "grade_#{activity.id}_#{@student.id}" %>" class="border w-16" type="text" name="grade[grade]" value="<%= if grade_id, do: activity.grade.grade %>" autofocus>
+            <%= if grade_id do %>
               <input class="border" type="hidden" name="grade[id]" value="<%= grade_id %>">
+              <input type="hidden" name="_method" value="PUT">
             <% end %>
-            <input class="border w-16" type="text" name="grade[grade]" value="<%= if grade_id, do: activity.grade.grade %>">
             <input class="border" type="hidden" name="grade[user_id]" value="<%= @conn.assigns.current_user.id %>">
             <input class="border" type="hidden" name="grade[student_id]" value="<%= @student.id %>">
             <input class="border" type="hidden" name="grade[activity_id]" value="<%= activity.id %>">

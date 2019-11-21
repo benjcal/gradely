@@ -44,6 +44,7 @@ defmodule GradelyWeb.StudentController do
   end
 
   def show(conn, %{"id" => id}) do
+    IO.inspect conn
     student = Students.get_student!(id)
     render(conn, "show.html", student: student)
   end

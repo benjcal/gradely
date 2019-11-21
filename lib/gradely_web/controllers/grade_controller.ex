@@ -32,7 +32,9 @@ defmodule GradelyWeb.GradeController do
     render(conn, "show.html", grade: grade)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, params) do
+    %{"id" => id} = params
+    IO.inspect params
     grade = Grades.get_grade!(id)
     changeset = Grades.change_grade(grade)
     render(conn, "edit.html", grade: grade, changeset: changeset)
@@ -45,7 +47,7 @@ defmodule GradelyWeb.GradeController do
       {:ok, grade} ->
         conn
         |> put_flash(:info, "Grade updated successfully.")
-        |> redirect(to: Routes.grade_path(conn, :show, grade))
+        |> redirect(to: Routes.student_path(conn, :show, grade_params["student_id"]))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", grade: grade, changeset: changeset)

@@ -17,3 +17,7 @@ import "unpoly/dist/unpoly.min.css"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+up.compiler('.gradess', (e) => {
+  console.log('a')
+})
