@@ -2,7 +2,7 @@ defmodule Gradely.Repo.Migrations.CreateGrades do
   use Ecto.Migration
 
   def change do
-    create table(:grades, primaty_key: false) do
+    create table(:grades) do
       add :student_id, references(:courses), null: false
       add :activity_id, references(:activities), null: false
       add :value, :float

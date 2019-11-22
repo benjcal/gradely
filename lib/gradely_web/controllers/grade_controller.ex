@@ -34,7 +34,6 @@ defmodule GradelyWeb.GradeController do
 
   def edit(conn, params) do
     %{"id" => id} = params
-    IO.inspect params
     grade = Grades.get_grade!(id)
     changeset = Grades.change_grade(grade)
     render(conn, "edit.html", grade: grade, changeset: changeset)

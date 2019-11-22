@@ -2,7 +2,6 @@ defmodule Gradely.Grades.Grade do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key false
   schema "grades" do
     belongs_to :student, Gradely.Students.Student
     belongs_to :activity, Gradely.Activities.Activity
@@ -12,7 +11,7 @@ defmodule Gradely.Grades.Grade do
   @doc false
   def changeset(grade, attrs) do
     grade
-    |> cast(attrs, [:user_id, :student_id, :activity_id, :grade])
+    |> cast(attrs, [:student_id, :activity_id, :value])
     |> validate_required([])
   end
 end

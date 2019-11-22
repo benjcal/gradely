@@ -7,6 +7,7 @@ defmodule Gradely.Students.Student do
 
     field :first_name, :string
     field :last_name, :string
+
     many_to_many :courses, Gradely.Courses.Course,
       join_through: Gradely.Enrollments.Enrollment, on_replace: :delete
 

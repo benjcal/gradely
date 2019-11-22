@@ -37,12 +37,11 @@
         <td class="pr-24"><%= activity.name %></td>
         <td>
           <form class="grades" id="<%= "grade#{@student.id}_#{activity.id}" %>" action="<%= form_action %>" method="post" up-target="<%= "#grade#{@student.id}_#{activity.id}" %>">
-            <input class="border w-16" type="text" name="grade[grade]" value="<%= if grade_id, do: activity.grade.grade %>">
+            <input class="border w-16" type="text" name="grade[value]" value="<%= if grade_id, do: activity.grade.value %>">
             <%= if grade_id do %>
               <input name="grade[id]" type="hidden" value="<%= grade_id %>">
               <input name="_method" v type="hidden" value="PUT">
             <% end %>
-            <input name="grade[user_id]" type="hidden" value="<%= @conn.assigns.current_user.id %>">
             <input name="grade[student_id]" type="hidden" value="<%= @student.id %>">
             <input name="grade[activity_id]" type="hidden" value="<%= activity.id %>">
             <input name="_csrf_token" type="hidden" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
