@@ -30,10 +30,14 @@ defmodule Seeds do
 	end
 
 	def create_student(users) do
-		{:ok, student} = Gradely.Students.create_student(%{
-			first_name: Faker.Name.first_name,
-			last_name: Faker.Name.last_name,
-			user: Enum.at(users, Enum.random(0..(length(@users) -1)))}
+		{:ok, student} = Gradely.Students.create(
+			%{
+				student: %{
+					first_name: Faker.Name.first_name,
+					last_name: Faker.Name.last_name
+				},
+				user: Enum.at(users, Enum.random(0..(length(@users) -1)))
+			}
 		)
 
 		student
@@ -53,9 +57,9 @@ defmodule Seeds do
 
 	def run do
 		users = Enum.map(@users, &create_user/1)
-		students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
-		courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
-		Enum.each(students, fn student -> enroll_student(student, courses) end)
+		# students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
+		# courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
+		# Enum.each(students, fn student -> enroll_student(student, courses) end)
 	end
 
 	def run_test do

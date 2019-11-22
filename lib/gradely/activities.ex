@@ -4,6 +4,7 @@ defmodule Gradely.Activities do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias Gradely.Repo
 
   alias Gradely.Activities.Activity
@@ -49,10 +50,11 @@ defmodule Gradely.Activities do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_activity(attrs \\ %{}) do
-
+  def create(attrs \\ %{}) do
     %Activity{}
-    |> Activity.changeset(attrs)
+    |> Activity.changeset(attrs[:activity])
+    |> put_assoc(:user, attrs[:user])
+    |> put_assoc(:course, attrs[:course])
     |> Repo.insert()
   end
 

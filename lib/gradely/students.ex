@@ -40,9 +40,23 @@ defmodule Gradely.Students do
     %Student{}
     |> Student.changeset(attrs[:student])
     |> put_assoc(:user, attrs[:user])
-    |> put_assoc(:courses, attrs[:courses])
+    |> maybe_put_assoc(:courses, attrs[:courses])
     |> Repo.insert()
   end
+
+  def maybe_put_assoc(%Ecto.Changeset{} = changeset, name, nil) do
+    changeset
+  end
+
+  def maybe_put_assoc(%Ecto.Changeset{} = changeset, key, attrs) when is_atom(key) do
+    if attrs[key] do
+      put_assoc(changeset, key, attrs[key])
+    else
+      changeset
+    end
+  end
+
+
 
   def update(attrs \\ %{}) do
     attrs[:student]

@@ -11,6 +11,15 @@
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 
+
+  <%= label f, :total_value %>
+  <%= text_input f, :total_value %>
+  <%= error_tag f, :total_value %>
+
+  <%= label f, :weight %>
+  <%= text_input f, :weight %>
+  <%= error_tag f, :weight %>
+
   <div>
     <%= submit "Save" %>
   </div>

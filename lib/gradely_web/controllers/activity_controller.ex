@@ -3,6 +3,7 @@ defmodule GradelyWeb.ActivityController do
 
   alias Gradely.Activities
   alias Gradely.Activities.Activity
+  alias Gradely.Courses
 
   def index(conn, _params) do
     activities = Activities.list_activities()
@@ -20,13 +21,15 @@ defmodule GradelyWeb.ActivityController do
   end
 
   def create(conn, params) do
-    user_id = conn.assigns.current_user.id
-    course = Gradely.Courses.get_course!(params["course_id"])
-    %{"activity" => activity_params} = params
-    activity_params = Map.put(activity_params, "course_id", params["course_id"])
-    activity_params = Map.put(activity_params, "user_id", user_id)
-    case Activities.create_activity(activity_params) do
-      {:ok, activity} ->
+    course = Courses.get_course!(params["course_id"])
+    attrs = %{
+      user: get_user(conn),
+      course: course,
+      activity: params["activity"]
+    }
+
+    case Activities.create(attrs) do
+      {:ok, _activity} ->
         conn
         |> put_flash(:info, "Activity created successfully.")
         |> redirect(to: Routes.course_path(conn, :index))
