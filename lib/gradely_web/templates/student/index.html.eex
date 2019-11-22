@@ -36,12 +36,13 @@
 
           <td>
             <div class="w-32 bg-gray-300 rounded">
-              <div class="w-32 bg-green-400 rounded" style="width: <%= Enum.random(50..80) %>%; height: 10px"></div>
+              <div class="w-32 bg-green-400 rounded" style="width: <%= average_grade(student.courses) %>%; height: 10px"></div>
             </div>
+              <%= average_grade(student.courses) %>%
           </td>
 
           <td>
-            <%= Enum.random(2..6) %>/7
+            <%= length activities_graded(student.courses) %>/<%= length activities_all(student.courses) %>
           </td>
 
         </tr>

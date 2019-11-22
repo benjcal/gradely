@@ -29,7 +29,7 @@
 
 
   <table>
-    <%= for activity <- all_activities(@student.courses) do %>
+    <%= for activity <- activities_all(@student.courses) do %>
       <% grade_id = if activity.grade, do: activity.grade.id, else: nil %>
       <% form_action = if grade_id, do: "/grades/#{grade_id}", else: "/grades" %>
 
