@@ -8,8 +8,7 @@ defmodule Gradely.Students do
 
   alias Gradely.Students.Student
 
-  def get_page(conn, params) do
-    user_id = conn.assigns.current_user.id
+  def get_table_page(user_id, params) do
 
     sort = case params["sort"] do
       "name" -> :first_name
@@ -21,6 +20,9 @@ defmodule Gradely.Students do
     Student
     |> order_by(asc: ^sort)
     |> where([s], s.user_id == ^user_id)
+    |> preload(:courses)
+    |> preload([courses: :activities])
+    |> preload([courses: [activities: :grade]])
     |> Repo.paginate(params)
   end
 
@@ -33,12 +35,6 @@ defmodule Gradely.Students do
 
   def get_student_clean!(id), do: Repo.get!(Student, id)
 
-  def create_student(attrs \\ %{}) do
-    %Student{}
-    |> Student.changeset(attrs)
-    |> Repo.insert()
-  end
-
   def create(attrs \\ %{}) do
     courses = if attrs[:courses], do: Gra
     %Student{}
@@ -48,10 +44,10 @@ defmodule Gradely.Students do
     |> Repo.insert()
   end
 
-  def update_student(%Student{} = student, attrs, courses) do
-    student
-    |> Student.changeset_edit(attrs)
-    |> Ecto.Changeset.put_assoc(:courses, courses)
+  def update(attrs \\ %{}) do
+    attrs[:student]
+    |> Student.changeset(attrs[:updates])
+    |> put_assoc(:courses, attrs[:courses])
     |> Repo.update()
   end
 

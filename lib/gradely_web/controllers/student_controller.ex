@@ -6,7 +6,8 @@ defmodule GradelyWeb.StudentController do
   alias Gradely.Courses
 
   def index(conn, params) do
-    page = Students.get_page(conn, params)
+    page = Students.get_table_page(get_user_id(conn), params)
+
     render(conn, "index.html",
       students: page.entries,
       page_number: page.page_number,
@@ -21,7 +22,7 @@ defmodule GradelyWeb.StudentController do
 
     render(conn, "new.html",
       changeset: changeset,
-      courses: Gradely.Courses.by_user(get_user_id(conn))
+      courses: Courses.by_user(get_user_id(conn))
     )
   end
 
@@ -40,40 +41,48 @@ defmodule GradelyWeb.StudentController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html",
-        changeset: changeset,
-        courses: Gradely.Courses.list_courses(conn)
+          changeset: changeset,
+          courses: Courses.by_user(get_user_id(conn))
         )
     end
   end
 
   def show(conn, %{"id" => id}) do
     student = Students.get_student!(id)
+
     render(conn, "show.html", student: student)
   end
 
   def edit(conn, %{"id" => id}) do
     student = Students.get_student!(id)
     changeset = Students.change_student(student)
-    render(conn, "edit.html", student: student,
-    changeset: changeset,
-    courses: Gradely.Courses.list_courses(conn)
+
+    render(conn, "edit.html",
+      student: student,
+      changeset: changeset,
+      courses: Gradely.Courses.by_user(get_user_id(conn))
     )
   end
 
   def update(conn, params) do
-    %{"id" => id, "student" => student_params} = params
+    student = Students.get_student!(params["id"])
 
-    student = Students.get_student!(id)
-    courses_to_enroll = Courses.get_courses_from_params(params["courses"])
+    attrs = %{
+      student: student,
+      courses: Courses.get_from_params(params["courses"]),
+      updates: params["student"]
+    }
 
-    case Students.update_student(student, student_params, courses_to_enroll) do
+    case Students.update(attrs) do
       {:ok, _student} ->
         conn
         |> put_flash(:info, "Student updated successfully.")
         |> redirect(to: Routes.student_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", student: student, changeset: changeset)
+        render(conn, "edit.html",
+        student: student,
+        changeset: changeset)
     end
   end
 

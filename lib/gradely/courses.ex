@@ -24,7 +24,7 @@ defmodule Gradely.Courses do
 
   def get_courses(ids) do
     Course
-    |> where([c], c.id == ^ids)
+    |> where([c], c.id in ^ids)
     |> Repo.all
   end
 
