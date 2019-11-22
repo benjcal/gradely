@@ -6,6 +6,8 @@ defmodule Gradely.Grades.Grade do
     belongs_to :student, Gradely.Students.Student
     belongs_to :activity, Gradely.Activities.Activity
     field :value, :float
+
+    timestamps()
   end
 
   @doc false

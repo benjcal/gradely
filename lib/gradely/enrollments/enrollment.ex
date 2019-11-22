@@ -6,6 +6,8 @@ defmodule Gradely.Enrollments.Enrollment do
   schema "enrollments" do
     belongs_to :course, Gradely.Courses.Course
     belongs_to :student, Gradely.Students.Student
+
+    timestamps()
   end
 
   @doc false
