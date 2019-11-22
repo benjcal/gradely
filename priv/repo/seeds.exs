@@ -57,8 +57,17 @@ defmodule Seeds do
 		courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
 		Enum.each(students, fn student -> enroll_student(student, courses) end)
 	end
+
+	def run_test do
+		Enum.map(@users, &create_user/1)
+	end
 end
 
+IO.inspect Mix.env
 
-Seeds.run
+case Mix.env do
+	:dev 	-> Seeds.run
+	:test -> Seeds.run_test
+end
+
 
