@@ -30,14 +30,13 @@ defmodule Gradely.Students do
 
   def get_student_clean!(id), do: Repo.get!(Student, id)
 
-  def create_student_enroll(attrs \\ %{}, courses) do
+  def create_student(attrs \\ %{}) do
     %Student{}
     |> Student.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:courses, courses)
     |> Repo.insert()
   end
 
-  def create_student(attrs \\ %{}) do
+  def create(attrs \\ %{}) do
     %Student{}
     |> Student.changeset(attrs)
     |> Repo.insert()

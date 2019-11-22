@@ -15,7 +15,7 @@ defmodule Gradely.Courses.Course do
 
   @doc false
   def changeset(course, attrs) do
-    attrs = Gradely.Utils.keys_to_atoms(attrs)
+    attrs = Gradely.Utils.ensure_atom_keys(attrs)
     course
     |> cast(attrs, [:name])
     |> put_assoc(:user, Map.get(attrs, :user))

@@ -1,6 +1,6 @@
 defmodule Gradely.Utils do
 
-  def keys_to_atoms(map) when is_map(map) do
+  def ensure_atom_keys(map) when is_map(map) do
     map
     |> Enum.map(fn ({k, v}) -> {str_to_atom(k), v} end)
     |> Enum.into(%{})

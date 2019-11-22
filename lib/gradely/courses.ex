@@ -8,6 +8,12 @@ defmodule Gradely.Courses do
 
   alias Gradely.Courses.Course
 
+  def by_user(user_id) when is_integer(user_id) do
+    Course
+    |> where([c], c.user_id == ^user_id)
+    |> Repo.all
+  end
+
   def list_courses(conn) do
     user_id = conn.assigns.current_user.id
 

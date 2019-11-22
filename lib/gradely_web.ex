@@ -24,6 +24,7 @@ defmodule GradelyWeb do
       import Plug.Conn
       import GradelyWeb.Gettext
       alias GradelyWeb.Router.Helpers, as: Routes
+      import GradelyWeb.ConnHelpers
     end
   end
 

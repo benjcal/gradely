@@ -18,18 +18,16 @@ defmodule GradelyWeb.StudentController do
 
   def new(conn, _params) do
     changeset = Students.change_student(%Student{})
+
     render(conn, "new.html",
       changeset: changeset,
-      courses: Gradely.Courses.list_courses(conn)
+      courses: Gradely.Courses.by_user(get_user_id(conn))
     )
   end
 
   def create(conn, params) do
-    %{"student" => student_params} = params
-    courses_to_enroll = Courses.get_courses_from_params(params["courses"])
 
-    student_params = Map.put(student_params, :user, conn.assigns.current_user)
-    case Students.create_student_enroll(student_params, courses_to_enroll) do
+    case Students.create(params) do
       {:ok, _student} ->
         conn
         |> put_flash(:info, "Student created successfully.")
@@ -44,7 +42,6 @@ defmodule GradelyWeb.StudentController do
   end
 
   def show(conn, %{"id" => id}) do
-    IO.inspect conn
     student = Students.get_student!(id)
     render(conn, "show.html", student: student)
   end
