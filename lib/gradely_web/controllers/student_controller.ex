@@ -26,8 +26,13 @@ defmodule GradelyWeb.StudentController do
   end
 
   def create(conn, params) do
+    attrs = %{
+      user: get_user(conn),
+      student: params["student"],
+      courses: Courses.get_from_params(params["courses"])
+    }
 
-    case Students.create(params) do
+    case Students.create(attrs) do
       {:ok, _student} ->
         conn
         |> put_flash(:info, "Student created successfully.")

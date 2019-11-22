@@ -23,9 +23,9 @@ defmodule Gradely.Courses do
   end
 
   def get_courses(ids) do
-    query = from c in Course, where: c.id in ^ids, select: c
-    Repo.all(query)
-    |> Repo.preload(:activities)
+    Course
+    |> where([c], c.id == ^ids)
+    |> Repo.all
   end
 
   def get_page(conn, params) do
@@ -76,7 +76,7 @@ defmodule Gradely.Courses do
     end
   end
 
-  def get_courses_from_params(params) do
+  def get_from_params(params) do
     params
     |> clean_params
     |> get_courses

@@ -1,7 +1,10 @@
 defmodule Gradely.Students do
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias Gradely.Repo
   alias Gradely.Users
+  alias Gradely.Courses
+
 
   alias Gradely.Students.Student
 
@@ -37,8 +40,11 @@ defmodule Gradely.Students do
   end
 
   def create(attrs \\ %{}) do
+    courses = if attrs[:courses], do: Gra
     %Student{}
-    |> Student.changeset(attrs)
+    |> Student.changeset(attrs[:student])
+    |> put_assoc(:user, attrs[:user])
+    |> put_assoc(:courses, attrs[:courses])
     |> Repo.insert()
   end
 
@@ -54,6 +60,6 @@ defmodule Gradely.Students do
   end
 
   def change_student(%Student{} = student) do
-    Student.changeset_edit(student, %{})
+    Student.changeset(student, %{})
   end
 end
