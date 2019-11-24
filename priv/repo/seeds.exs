@@ -17,7 +17,7 @@ defmodule Seeds do
 		%{email: "b", password: "b"}
 	]
 
-	@students_num 10
+	@students_num 60
 	@courses_num 8
 
 	def create_user(user) do
@@ -57,7 +57,7 @@ defmodule Seeds do
 
 	def run do
 		users = Enum.map(@users, &create_user/1)
-		# students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
+		students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
 		# courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
 		# Enum.each(students, fn student -> enroll_student(student, courses) end)
 	end
