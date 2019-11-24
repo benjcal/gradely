@@ -32,6 +32,15 @@ defmodule Gradely.Students do
 
   def get_student_clean!(id), do: Repo.get!(Student, id)
 
+  def by_user(user_id) when is_integer(user_id) do
+    Student
+    |> where([s], s.user_id == ^user_id)
+    |> Repo.all
+    |> Repo.preload(:courses)
+    |> Repo.preload([courses: :activities])
+    |> Repo.preload([courses: [activities: :grade]])
+  end
+
   def create(attrs \\ %{}) do
     %Student{}
     |> Student.changeset(attrs[:student])

@@ -19,6 +19,7 @@ defmodule Seeds do
 
 	@students_num 60
 	@courses_num 18
+	@activities_num 80
 
 	def create_user(user) do
 		%Gradely.Users.User{
@@ -41,6 +42,7 @@ defmodule Seeds do
 		)
 
 		student
+		|> Gradely.Repo.preload(:courses)
 	end
 
 	def create_course(users) do
@@ -54,6 +56,23 @@ defmodule Seeds do
 		)
 
 		course
+		|> Gradely.Repo.preload(:activities)
+	end
+
+	def create_activity(users, courses) do
+		{:ok, activity} = Gradely.Activities.create(
+			%{
+				activity: %{
+					name: Faker.StarWars.planet,
+					total_value: Enum.random(60..100),
+					weight: Enum.random(10..40)
+				},
+				course: List.first(Enum.take_random(courses, 1)),
+				user: List.first(Enum.take_random(users, 1))
+			}
+		)
+
+		activity
 	end
 
 	def enroll_student(student, courses) do
@@ -65,7 +84,10 @@ defmodule Seeds do
 		users = Enum.map(@users, &create_user/1)
 		students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
 		courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
-		# Enum.each(students, fn student -> enroll_student(student, courses) end)
+
+		Enum.each(students, fn student -> enroll_student(student, courses) end)
+
+		activities = Enum.map(0..@activities_num, fn _ -> create_activity(users, courses) end)
 	end
 
 	def run_test do
@@ -73,7 +95,6 @@ defmodule Seeds do
 	end
 end
 
-IO.inspect Mix.env
 
 case Mix.env do
 	:dev 	-> Seeds.run
