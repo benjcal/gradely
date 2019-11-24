@@ -18,7 +18,7 @@ defmodule Seeds do
 	]
 
 	@students_num 60
-	@courses_num 8
+	@courses_num 18
 
 	def create_user(user) do
 		%Gradely.Users.User{
@@ -44,9 +44,15 @@ defmodule Seeds do
 	end
 
 	def create_course(users) do
-		{:ok, course} = Gradely.Courses.create_course(%{
-			name: Enum.join([Faker.Industry.industry, Integer.to_string(Enum.random(101..500))], " "),
-			user: Enum.at(users, Enum.random(0..(length(@users) -1)))})
+		{:ok, course} = Gradely.Courses.create(
+			%{
+				course: %{
+					name: Enum.join([Faker.Industry.industry, Integer.to_string(Enum.random(101..500))], " ")
+				},
+				user: Enum.at(users, Enum.random(0..(length(@users) -1)))
+			}
+		)
+
 		course
 	end
 
@@ -58,7 +64,7 @@ defmodule Seeds do
 	def run do
 		users = Enum.map(@users, &create_user/1)
 		students = Enum.map(0..@students_num, fn _ -> create_student(users) end)
-		# courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
+		courses = Enum.map(0..@courses_num, fn _ -> create_course(users) end)
 		# Enum.each(students, fn student -> enroll_student(student, courses) end)
 	end
 

@@ -4,6 +4,7 @@ defmodule Gradely.Courses do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias Gradely.Repo
 
   alias Gradely.Courses.Course
@@ -45,6 +46,13 @@ defmodule Gradely.Courses do
   def get_course!(id) do
     Repo.get!(Course, id)
     |> Repo.preload(:activities)
+  end
+
+  def create(attrs \\ %{}) do
+    %Course{}
+    |> Course.changeset(attrs[:course])
+    |> put_assoc(:user, attrs[:user])
+    |> Repo.insert()
   end
 
   def create_course(attrs \\ %{}) do
