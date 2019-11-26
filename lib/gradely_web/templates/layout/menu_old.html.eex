@@ -1,0 +1,47 @@
+<%# Classes and helper function for selected menu %>
+<%
+  icon_link_class = "my-10 hover:text-gray-300"
+
+  icon_class = fn (x) ->
+    if Enum.at(@conn.path_info, 0) == x do
+      icon_link_class
+    else
+      icon_link_class
+    end
+  end
+%>
+
+<div class="flex flex-col items-center w-16 h-full bg-gray-700">
+
+  <span class="w-10 pt-3">
+    <%= link to: Routes.page_path(@conn, :index) do %>
+      <img src="/images/logo.png" alt="logo">
+    <% end %>
+  </span>
+
+  <div class="flex flex-col flex-auto items-center mt-10">
+    <span class="my-10 text-gray-600 hover:text-gray-300" up-nav>
+      <a href="<%= Routes.student_path(@conn, :index) %>" up-target="#main">
+        <i class="material-icons">face</i>
+      </a>
+    </span>
+
+
+
+    <span class="my-10 text-gray-600 hover:text-gray-300" up-nav>
+      <a href="<%= Routes.course_path(@conn, :index) %>" up-target="#main">
+        <i class="material-icons">book</i>
+      </a>
+    </span>
+
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="my-10 text-gray-600 hover:text-gray-300">
+      <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+        <i class="material-icons">exit_to_app</i>
+      <% end %>
+    </div>
+  </div>
+
+</div>
