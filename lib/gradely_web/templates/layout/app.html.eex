@@ -12,44 +12,24 @@
   </head>
   <body class="flex bg-gray-200">
 
-  <nav class="w-32 bg-white border-r border-gray-400">
+    <nav class="w-32 bg-white border-r border-gray-400">
+    </nav>
 
-
-  </nav>
-
-  <main class="flex-auto">
-    <div class="top-bar flex items-center h-12 pl-8 bg-white border-b border-gray-400">
-      <div class="search-results absolute top-0 left-0 ml-40 w-64 h-32 mt-12 bg-white rounded-lg shadow-lg">
-          asdfl;kj
-      </div>
-      <span class="search flex items-center text-xl">
-        <i class="material-icons text-gray-400">search</i>
-        <form action="search" up-autosubmit>
+    <main class="flex-auto">
+      <div class="top-bar flex items-center h-12 pl-8 bg-white border-b border-gray-400">
+        <span class="search flex items-center text-xl">
+          <i class="material-icons text-gray-400">search</i>
           <input class="ml-2 text-gray-600" type="text" placeholder="Search">
-        </form>
-      </span>
-
-
-    </div>
-
-
-    <div class="container mx-auto">
-      <div class="header h-16 mt-8 bg-white rounded-lg shadow">
+        </span>
 
       </div>
 
-      <div class="body h-64 mt-4 bg-white rounded-lg shadow">
+
+      <div class="container mx-auto p-8">
         <%= render @view_module, @view_template, assigns %>
       </div>
 
-
-      <div class="pills flex justify-between">
-        <div class="w-32 h-10 mt-2 bg-white rounded-lg shadow"></div>
-        <div class="w-48 h-10 mt-2 bg-white rounded-lg shadow"></div>
-      </div>
-    </div>
-
-  </main>
+    </main>
 
   </body>
 </html>

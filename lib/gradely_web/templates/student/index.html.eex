@@ -1,56 +1,94 @@
-<%= c :container, assigns do %>
-  <% header_params = %{icon: "face", text: "Students", new_link: Routes.student_path(@conn, :new), per_page: true} %>
-  <%= c :container_header, Map.merge(assigns, header_params) %>
+<div role=header class="flex items-center justify-between h-16 rounded-lg px-4">
+  <span>
+    <span class="flex items-center text-gray-700 text-3xl">
+      <i class="material-icons" style="font-size: 32px">face</i>
+      <span class="pl-2">Students</span>
+    </span>
+  </span>
+  <span>
+    <a href="/students/new" class="px-2 h-8 flex items-center justify-center rounded bg-blue-600 text-white font-bold hover:bg-blue-700 shadow">
+      <i class="material-icons pr-2" style="font-size: 20px;">add</i>
+      Add Student
+    </a>
+  </span>
+</div>
 
-  <a href="/students/new" up-modal=".new">new modal</a>
+<div role=body class="bg-white rounded-lg py-4">
+
 
   <%= c :table, assigns do %>
 
-    <%= c :table_header, assigns do %>
-      <td></td>
-      <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
-      <td>AVERAGE GRADE</td>
-      <td>ACTIVITIES GRADED</td>
-    <% end %>
-
-    <%= c :table_body, assigns do %>
-      <%= for student <- @students do %>
-        <tr
-          height="42"
-          class="text-gray-700 hover:bg-gray-300 cursor-pointer"
-          onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
-        >
-
-          <td align="center">
-            <div
-              class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 font-semibold"
-              style="background: #<%= color(student.first_name <> student.last_name)%>"
-            >
-              <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
-            </div>
-          </td>
-
-          <td>
-            <span class="black-70 pr4 fw5"><%= "#{student.first_name} #{student.last_name}" %></span>
-          </td>
-
-          <td>
-            <div class="w-32 bg-gray-300 rounded">
-              <div class="w-32 bg-green-400 rounded" style="width: <%= average_grade(student.courses) %>%; height: 10px"></div>
-            </div>
-              <%= average_grade(student.courses) %>%
-          </td>
-
-          <td>
-            <%= length activities_graded(student.courses) %>/<%= length activities_all(student.courses) %>
-          </td>
-
-        </tr>
+      <%= c :table_header, assigns do %>
+        <td></td>
+        <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
+        <td>AVERAGE GRADE</td>
+        <td>ACTIVITIES GRADED</td>
       <% end %>
+
+      <%= c :table_body, assigns do %>
+        <%= for student <- @students do %>
+          <tr
+            height="42"
+            class="text-gray-700 hover:bg-gray-300 cursor-pointer"
+            onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
+          >
+
+            <td align="center">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 font-semibold"
+                style="background: #<%= color(student.first_name <> student.last_name)%>"
+              >
+                <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
+              </div>
+            </td>
+
+            <td>
+              <span class="black-70 pr4 fw5"><%= "#{student.first_name} #{student.last_name}" %></span>
+            </td>
+
+            <td>
+              <div class="w-32 bg-gray-300 rounded">
+                <div class="w-32 bg-green-400 rounded" style="width: <%= average_grade(student.courses) %>%; height: 10px"></div>
+              </div>
+                <%= average_grade(student.courses) %>%
+            </td>
+
+            <td>
+              <%= length activities_graded(student.courses) %>/<%= length activities_all(student.courses) %>
+            </td>
+
+          </tr>
+        <% end %>
+      <% end %>
+
     <% end %>
+</div>
 
-  <% end %>
 
-  <%= c :pagination, assigns %>
+<div class="pills flex justify-between">
 
-<% end %>
+  <div class="inline-block relative mt-2 h-8 w-20 text-gray-700">
+      <select class="block appearance-none w-full px-4 h-8 rounded bg-white shadow cursor-pointer" onchange="window.location.assign(value)">
+        <%= for val <- [10,20,40,100] do %>
+          <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
+          <% selected = uri_params_equal?(url, @conn.query_string) %>
+          <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
+        <% end %>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+      </div>
+    </div>
+
+  <div class="flex items-center justify-between w-48 h-8 mt-2 bg-white text-gray-700 rounded-lg shadow">
+    <a class="pt-2" href='<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>'>
+      <i class="material-icons">chevron_left</i>
+    </a>
+    <span><%= @page_number %> of <%= @total_pages %></span>
+    <a class="pt-2" href='<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>'>
+      <i class="material-icons">chevron_right</i>
+    </a>
+  </div>
+</div>
+
+
