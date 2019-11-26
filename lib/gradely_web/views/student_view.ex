@@ -6,7 +6,7 @@ defmodule GradelyWeb.StudentView do
   end
 
   def color(x) do
-    AlchemicAvatar.Color.iwanthue(x)
+    AlchemicAvatar.Color.google(x)
     |> Enum.map(fn c -> Integer.to_string(c, 16) end )
     |> Enum.join("")
   end

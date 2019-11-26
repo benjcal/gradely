@@ -1,58 +1,50 @@
-<div class="new">
+<div role=header class="flex items-center justify-between h-16 rounded-lg px-4">
+  <span>
+    <span class="flex items-center text-gray-700 text-3xl">
+      <i class="material-icons" style="font-size: 32px">face</i>
+      <span class="pl-2">Add Student</span>
+    </span>
+  </span>
+</div>
 
-<%= c :container, assigns do %>
+<div class="bg-white rounded-lg px-6">
 
-  <% header_params = %{text: "New Student", icon: "face"} %>
-  <%= c :container_header, Map.merge(assigns, header_params) %>
+  <form action="/students" method="post">
 
-
-
-  <div class="flex">
-
-  <div>
-  <%= form_for @changeset, Routes.student_path(@conn, :create), fn f -> %>
-      <%= label f, :first_name, class: "block text-gray-700 font-bold mb-2" %>
-      <%= text_input f, :first_name, class: "h-8 p-2 bg-gray-200 rounded text-gray-700 border-2 border-transparent focus:border-gray-400 focus:bg-white focus:shadow" %>
-      <div class="text-sm text-red-600">
-        <%= error_tag f, :first_name %>
-        <br>
-      </div>
-
-
-      <%= label f, :last_name , class: "block text-gray-700 font-bold mb-2"  %>
-      <%= text_input f, :last_name, class: "h-8 p-2 bg-gray-200 rounded text-gray-700 border-2 border-transparent focus:border-gray-400 focus:bg-white focus:shadow" %>
-      <div class="text-sm text-red-600">
-        <%= error_tag f, :last_name %>
-      </div>
-
-  </div>
-
-  <div class="ml-12 w-64 shadow rounded p-4 pt-0">
-    <span class="h-8 pb-4 text-gray-700 font-bold">Enroll in Courses</span>
-    <div class="h-64 overflow-y-auto">
-      <ul>
-        <%= for course <- @courses do %>
-        <li>
-          <input type="checkbox" name=courses[<%= course.id %>]> <%= course.name %>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-  </div>
+    <div class="flex">
+      <span class="w-24">
+        <div class="flex items-center h-8 my-6 text-sm font-bold text-gray-600">First Name</div>
+        <div class="flex items-center h-8 my-6 text-sm font-bold text-gray-600">Last Name</div>
+      </span>
 
 
-
-
-    <div class="flex -mt-8">
-      <%= c :link_button, Map.merge(assigns, %{text: "Back", to: Routes.student_path(@conn, :index)}) %>
-      <%= c :submit_button, Map.merge(assigns, %{text: "Save"}) %>
+      <span>
+        <input type="text" name=student[first_name] class="block h-8 my-6 px-3 shadow-inner bg-gray-200 rounded-lg">
+        <input type="text" name=student[last_name] class="block h-8 my-6 px-3 shadow-inner bg-gray-200 rounded-lg">
+      </span>
     </div>
 
-    <% end %>
-<% end %>
-
+    <details class="w-64 pb-4">
+      <summary class="text-gray-600 font-bold cursor-pointer">Enroll in Courses</summary>
+      <div class="h-64 overflow-y-auto p-2">
+        <ul>
+          <%= for course <- @courses do %>
+          <li>
+            <input type="checkbox" name=courses[<%= course.id %>]> <%= course.name %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </details>
 
 </div>
+
+
+<div class="pills flex text-gray-600 mt-2">
+  <a href="/students" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-gray-300 shadow font-bold mr-2">Cancel</a>
+  <button type="submit" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-green-500 hover:text-gray-200 shadow font-bold">Save</button>
+</div>
+
+  <input name="_csrf_token" type="hidden" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
+</form>
 

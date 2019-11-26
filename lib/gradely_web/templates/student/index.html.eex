@@ -20,7 +20,7 @@
 
       <%= c :table_header, assigns do %>
         <td></td>
-        <td class="pointer" data-sort="<%= uri_add_params(@conn.params, %{"sort" => "name"})%>" onclick="window.location.assign(this.dataset.sort)">NAME</td>
+        <td class="cursor-pointer" data-sort='<%= uri_add_params(@conn.params, %{"sort" => "name"})%>' onclick='window.location.assign(this.dataset.sort)'>NAME</td>
         <td>AVERAGE GRADE</td>
         <td>ACTIVITIES GRADED</td>
       <% end %>
@@ -36,7 +36,7 @@
             <td align="center">
               <div
                 class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 font-semibold"
-                style="background: #<%= color(student.first_name <> student.last_name)%>"
+                style="background: #<%= color(student.last_name)%>"
               >
                 <%= String.at(student.first_name, 0) <> String.at(student.last_name, 0) %>
               </div>
@@ -69,7 +69,7 @@
 
   <div class="inline-block relative mt-2 h-8 w-20 text-gray-700">
       <select class="block appearance-none w-full px-4 h-8 rounded bg-white shadow cursor-pointer" onchange="window.location.assign(value)">
-        <%= for val <- [10,20,40,100] do %>
+        <%= for val <- [10,25,50,100] do %>
           <% url = uri_add_params(@conn.params, %{"page_size" => val}) %>
           <% selected = uri_params_equal?(url, @conn.query_string) %>
           <option value="<%= url %>" <%= if selected, do: "selected"%> ><%= val %></option>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-  <div class="flex items-center justify-between w-48 h-8 mt-2 bg-white text-gray-700 rounded-lg shadow">
+  <div class="flex items-center justify-between w-40 h-8 mt-2 bg-white text-gray-700 rounded-lg shadow">
     <a class="pt-2" href='<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>'>
       <i class="material-icons">chevron_left</i>
     </a>
@@ -90,5 +90,3 @@
     </a>
   </div>
 </div>
-
-
