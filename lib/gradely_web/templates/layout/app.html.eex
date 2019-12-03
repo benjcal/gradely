@@ -19,17 +19,17 @@
         <img src="/images/logo.png" class="mx-auto mb-4 w-16" alt="logo">
       </a>
       <a role=menu-item href="/students" up-target=".container" up-nav class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
-        <i class="material-icons">face</i>
+        <i data-feather="users"></i>
       </a>
       <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
-        <i class="material-icons">book</i>
+        <i data-feather="book"></i>
       </a>
     </nav>
 
     <main class="flex-auto">
       <div class="top-bar flex items-center h-12 pl-8 bg-white border-b border-gray-400">
         <span class="search flex items-center text-xl">
-          <i class="material-icons text-gray-400">search</i>
+          <i data-feather="search" class="text-gray-400"></i>
           <input class="ml-2 text-gray-600" type="text" placeholder="Search">
         </span>
 

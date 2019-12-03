@@ -1,7 +1,7 @@
-<div role=header class="flex items-center justify-between h-16 rounded-lg px-4">
+<div role=header class="flex items-center justify-between h-16 rounded-lg">
   <span>
-    <span class="flex items-center text-gray-700 text-3xl">
-      <i class="material-icons" style="font-size: 32px">face</i>
+    <span class="flex items-center text-gray-700 text-2xl">
+      <i data-feather="users"></i>
       <span class="pl-2">Students</span>
     </span>
   </span>
@@ -76,17 +76,17 @@
         <% end %>
       </select>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        <i data-feather="chevron-down" class="w-5 h-5 mt-1"></i>
       </div>
     </div>
 
   <div class="flex items-center justify-between w-40 h-8 mt-2 bg-white text-gray-700 rounded-lg shadow">
-    <a class="pt-2" href='<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>'>
-      <i class="material-icons">chevron_left</i>
+    <a href='<%= uri_add_params(@conn.params, %{"page" => @page_number - 1}) %>'>
+      <i data-feather="chevron-left" class="w-5 h-5"></i>
     </a>
     <span><%= @page_number %> of <%= @total_pages %></span>
-    <a class="pt-2" href='<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>'>
-      <i class="material-icons">chevron_right</i>
+    <a href='<%= uri_add_params(@conn.params, %{"page" => @page_number + 1}) %>'>
+      <i data-feather="chevron-right" class="w-5 h-5"></i>
     </a>
   </div>
 </div>

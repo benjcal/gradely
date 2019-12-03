@@ -3,7 +3,7 @@ defmodule Gradely.Repo.Migrations.CreateActivities do
 
   def change do
     create table(:activities) do
-      add :user_id, references(:users), null: false
+      add :orgnization_id, references(:organizations), null: false
       add :course_id, references(:courses), null: false
 
       add :name, :string
@@ -14,6 +14,5 @@ defmodule Gradely.Repo.Migrations.CreateActivities do
       timestamps()
     end
 
-    create index(:activities, [:user_id])
   end
 end

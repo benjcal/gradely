@@ -3,6 +3,8 @@ defmodule Gradely.Repo.Migrations.CreateTracks do
 
   def change do
     create table(:tracks) do
+      add :orgnization_id, references(:organizations), null: false
+
       add :name, :string
       add :user_id, references(:users), null: false
 
