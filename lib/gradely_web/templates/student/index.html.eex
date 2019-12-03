@@ -6,7 +6,7 @@
     </span>
   </span>
   <span>
-    <a href="/students/new" class="px-2 h-8 flex items-center justify-center rounded bg-blue-600 text-white font-bold hover:bg-blue-700 shadow">
+    <a href="/students/new" up-target=".container" class="px-2 h-8 flex items-center justify-center rounded bg-gray-500 text-white font-semibold hover:bg-gray-600 shadow">
       <i class="material-icons pr-2" style="font-size: 20px;">add</i>
       Add Student
     </a>
@@ -28,7 +28,7 @@
       <%= c :table_body, assigns do %>
         <%= for student <- @students do %>
           <tr
-            height="42"
+            height="48"
             class="text-gray-700 hover:bg-gray-300 cursor-pointer"
             onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
           >

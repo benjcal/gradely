@@ -13,8 +13,8 @@
 
     <div class="flex">
       <span class="w-24">
-        <div class="flex items-center h-8 my-6 text-sm font-bold text-gray-600">First Name</div>
-        <div class="flex items-center h-8 my-6 text-sm font-bold text-gray-600">Last Name</div>
+        <div class="flex items-center h-8 my-6 text-sm font-semibold text-gray-600">First Name</div>
+        <div class="flex items-center h-8 my-6 text-sm font-semibold text-gray-600">Last Name</div>
       </span>
 
 
@@ -25,12 +25,13 @@
     </div>
 
     <details class="w-64 pb-4">
-      <summary class="text-gray-600 font-bold cursor-pointer">Enroll in Courses</summary>
+      <summary class="text-gray-600 font-semibold cursor-pointer">Enroll in Courses</summary>
       <div class="h-64 overflow-y-auto p-2">
         <ul>
           <%= for course <- @courses do %>
-          <li>
-            <input type="checkbox" name=courses[<%= course.id %>]> <%= course.name %>
+          <li class="flex items-center text-gray-700 py-1">
+            <input type="checkbox" name=courses[<%= course.id %>]>
+            <span class="pl-2"><%= course.name %></span>
           </li>
           <% end %>
         </ul>
@@ -41,8 +42,8 @@
 
 
 <div class="pills flex text-gray-600 mt-2">
-  <a href="/students" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-gray-300 shadow font-bold mr-2">Cancel</a>
-  <button type="submit" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-green-500 hover:text-gray-200 shadow font-bold">Save</button>
+  <a href="/students" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-gray-300 shadow font-semibold mr-2">Cancel</a>
+  <button type="submit" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-green-500 hover:text-gray-200 shadow font-semibold">Save</button>
 </div>
 
   <input name="_csrf_token" type="hidden" value="<%= Plug.CSRFProtection.get_csrf_token() %>">

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed:200,300,400,500,600,700|IBM+Plex+Sans:200,300,400,500,600,700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/images/logo.png" />
   </head>
   <body class="flex bg-gray-200">
@@ -16,7 +18,7 @@
       <a role=logo href="/" up-target=".container">
         <img src="/images/logo.png" class="mx-auto mb-4 w-16" alt="logo">
       </a>
-      <a role=menu-item href="/students" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
+      <a role=menu-item href="/students" up-target=".container" up-nav class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
         <i class="material-icons">face</i>
       </a>
       <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
@@ -34,7 +36,7 @@
       </div>
 
 
-      <div class="container mx-auto p-8">
+      <div class="container mx-auto px-8 py-4">
         <%= render @view_module, @view_template, assigns %>
       </div>
 

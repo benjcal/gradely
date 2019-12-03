@@ -42,6 +42,7 @@ defmodule Gradely.Students do
   end
 
   def create(attrs \\ %{}) do
+    IO.inspect attrs
     %Student{}
     |> Student.changeset(attrs[:student])
     |> put_assoc(:user, attrs[:user])

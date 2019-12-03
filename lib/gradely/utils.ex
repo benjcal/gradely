@@ -15,7 +15,7 @@ defmodule Gradely.Utils do
 
   defp str_to_atom(str), do: str
 
-  def maybe_put_assoc(%Ecto.Changeset{} = changeset, _, nil), do: changeset
+  def maybe_put_assoc(%Ecto.Changeset{} = changeset, _, []), do: changeset
 
   def maybe_put_assoc(%Ecto.Changeset{} = changeset, key, attrs) when is_atom(key) do
       Ecto.Changeset.put_assoc(changeset, key, attrs[key])

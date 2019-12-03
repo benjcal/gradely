@@ -28,7 +28,7 @@ defmodule GradelyWeb.StudentView do
     |> Enum.map(fn a -> (a.grade.value/a.total_value) * 100 end)
     |> Enum.sum
 
-    0
+
 
   end
 
