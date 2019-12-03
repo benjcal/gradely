@@ -3,7 +3,7 @@ defmodule Gradely.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :orgnization_id, references(:organizations), null: false
+      add :organization_id, references(:organizations), null: false
 
       add :email, :string, null: false
       add :password_hash, :string

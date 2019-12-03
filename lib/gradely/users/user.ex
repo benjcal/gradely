@@ -5,6 +5,7 @@ defmodule Gradely.Users.User do
   schema "users" do
     pow_user_fields()
     embeds_one :preferences, Gradely.Users.Preferences
+    belongs_to :organization, Gradely.Organizations.Organization
 
     timestamps()
   end
