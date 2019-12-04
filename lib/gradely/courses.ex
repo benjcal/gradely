@@ -51,7 +51,7 @@ defmodule Gradely.Courses do
   def create(attrs \\ %{}) do
     %Course{}
     |> Course.changeset(attrs[:course])
-    |> put_assoc(:user, attrs[:user])
+    |> put_assoc(:organization, attrs[:organization])
     |> Repo.insert()
   end
 

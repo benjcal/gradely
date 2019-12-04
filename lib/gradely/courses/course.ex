@@ -3,7 +3,7 @@ defmodule Gradely.Courses.Course do
   import Ecto.Changeset
 
   schema "courses" do
-    belongs_to :user, Gradely.Users.User
+    belongs_to :organization, Gradely.Organizations.Organization
 
     field :name, :string
     many_to_many :students, Gradely.Students.Student,
@@ -18,7 +18,6 @@ defmodule Gradely.Courses.Course do
     attrs = Gradely.Utils.ensure_atom_keys(attrs)
     course
     |> cast(attrs, [:name])
-    |> put_assoc(:user, Map.get(attrs, :user))
     |> validate_required([:name])
   end
 
