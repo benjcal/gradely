@@ -7,6 +7,7 @@ defmodule Gradely.Users.User do
     embeds_one :preferences, Gradely.Users.Preferences
     belongs_to :organization, Gradely.Organizations.Organization
 
+    field :type, :integer # 0 = admin, 1 = educator
     timestamps()
   end
 end

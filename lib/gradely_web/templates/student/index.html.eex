@@ -48,13 +48,13 @@
 
           <td>
             <div class="w-32 bg-gray-300 rounded">
-              <div class="w-32 bg-green-400 rounded" style="width: <%= average_grade(student.courses) %>%; height: 10px"></div>
+              <div class="w-32 bg-green-400 rounded" style="width: <%= # average_grade(student.courses) %>%; height: 10px"></div>
             </div>
-            <%= average_grade(student.courses) %>%
+            <%= # average_grade(student.courses) %>%
           </td>
 
           <td>
-            <%= length activities_graded(student.courses) %>/<%= length activities_all(student.courses) %>
+            <%= # length activities_graded(student.courses) %>/<%= # length activities_all(student.courses) %>
           </td>
 
         </tr>

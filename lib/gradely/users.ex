@@ -16,4 +16,8 @@ defmodule Gradely.Users do
     |> Gradely.Repo.update!
   end
 
+  def is_admin(user) do
+    user.type == 0
+  end
+
 end

@@ -7,8 +7,8 @@ defmodule Seeds do
   ]
 
   @users [
-    %{email: "a", password: "a"},
-    %{email: "b", password: "b"}
+    %{email: "a", password: "a", type: 0},
+    %{email: "b", password: "b", type: 1}
   ]
 
   @students_num 60
@@ -20,13 +20,14 @@ defmodule Seeds do
       name: organization.name
     }
     |> Ecto.Changeset.change
-    |> Gradely.Repo.insert!	
+    |> Gradely.Repo.insert!
   end
 
   def create_user(user, organization) do
     %Gradely.Users.User{
       email: user.email,
-      password_hash: Password.pbkdf2_hash(user.password)
+      password_hash: Password.pbkdf2_hash(user.password),
+      type: user.type
     }
     |> Ecto.Changeset.change
     |> Ecto.Changeset.put_assoc(:organization, organization)

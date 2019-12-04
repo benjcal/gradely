@@ -4,23 +4,37 @@ defmodule Gradely.Students do
   import Gradely.Utils
   alias Gradely.Repo
   alias Gradely.Students.Student
+  alias Gradely.Users
 
-  def get_table_page(user_id, params) do
+  def get_table_page(user, params) do
+    user = user
+           |> Repo.preload(:organization)
+
 
     sort = case params["sort"] do
       "name" -> :first_name
       _ -> :id
     end
 
+    # TODO
+    # admin get students from all organization
+    # if educator get student from courses they are assigned to
+
+    case Users.is_admin(user) do
+      true -> Student
+      |> order_by(asc: ^sort)
+      |> where([s], s.organization_id == ^user.organization.id)
+      |> preload(:courses)
+      #|> preload([courses: :activities])
+      #|> preload([courses: [activities: :grade]])
+      |> Repo.paginate(params)
+      false -> nil
+    end
+
+
+
     # Users.update_preferences(conn.assigns.current_user, %{student_table_sort: "name"})
 
-    Student
-    |> order_by(asc: ^sort)
-    |> where([s], s.user_id == ^user_id)
-    |> preload(:courses)
-    |> preload([courses: :activities])
-    |> preload([courses: [activities: :grade]])
-    |> Repo.paginate(params)
   end
 
   def get_student!(id) do

@@ -9,4 +9,8 @@ up.compiler('.grades', (e) => {
   e.children[0].onblur = (x) => up.submit(e)
 })
 
-feather.replace()
+
+up.compiler('.container', (e) => {
+  feather.replace()
+})
+

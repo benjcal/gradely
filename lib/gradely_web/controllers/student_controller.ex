@@ -6,7 +6,7 @@ defmodule GradelyWeb.StudentController do
   alias Gradely.Courses
 
   def index(conn, params) do
-    page = Students.get_table_page(get_user_id(conn), params)
+    page = Students.get_table_page(get_user(conn), params)
 
     render(conn, "index.html",
       students: page.entries,
