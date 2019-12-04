@@ -1,33 +1,37 @@
-# defmodule Gradely.StudentsTest do
-#   use Gradely.DataCase
+defmodule Gradely.StudentsTest do
+  use Gradely.DataCase
 
-#   alias Gradely.Students
+  alias Gradely.Students
 
-#   describe "students" do
-#     alias Gradely.Students.Student
-#     alias Gradely.Users
+  describe "students" do
+    alias Gradely.Students.Student
+    alias Gradely.Users
+    alias Gradely.Organizations
 
-#     @valid_attrs %{first_name: "some first_name", last_name: "some last_name"}
-#     @update_attrs %{first_name: "some updated first_name", last_name: "some updated last_name"}
-#     @invalid_attrs %{first_name: nil, last_name: nil}
+    @valid_attrs %{first_name: "some first_name", last_name: "some last_name"}
+    @update_attrs %{first_name: "some updated first_name", last_name: "some updated last_name"}
+    @invalid_attrs %{first_name: nil, last_name: nil}
 
-#     def student_fixture(attrs \\ %{}) do
-#       user = Users.get_user!(1)
+    def student_fixture(attrs \\ %{}) do
+      organization = Organizations.get_organization!(1)
 
-#       attrs = Map.put(attrs, :user, user)
+      {:ok, student} = Students.create(
+          %{
+              organization: organization,
+              student: %{
+                first_name: "some first name",
+                last_name: "some last name"
+              }
+          }
+      )
 
-#       {:ok, student} =
-#         attrs
-#         |> Enum.into(@valid_attrs)
-#         |> Students.create_student()
+      student
+    end
 
-#       student
-#     end
-
-#     test "get_student!/1 returns the student with given id" do
-#       student = student_fixture()
-#       assert Students.get_student!(student.id) == student
-#     end
+    test "get_student!/1 returns the student with given id" do
+      student = student_fixture()
+      assert Students.get_student!(student.id) == student
+    end
 
     # test "create_student/1 with valid data creates a student" do
     #   assert {:ok, %Student{} = student} = Students.create_student(@valid_attrs)
@@ -62,5 +66,6 @@
     #   student = student_fixture()
     #   assert %Ecto.Changeset{} = Students.change_student(student)
     # end
-#   end
-# end
+
+  end
+end

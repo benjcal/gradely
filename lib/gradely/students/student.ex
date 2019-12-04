@@ -3,7 +3,7 @@ defmodule Gradely.Students.Student do
   import Ecto.Changeset
 
   schema "students" do
-    belongs_to :user, Gradely.Users.User
+    belongs_to :organization, Gradely.Organizations.Organization
 
     field :first_name, :string
     field :last_name, :string

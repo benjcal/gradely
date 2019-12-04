@@ -1,6 +1,10 @@
 
 defmodule Gradely.Organizations do
-    def test do
-        11
+    alias Gradely.Repo
+    alias Gradely.Organizations.Organization
+
+    def get_organization!(id) do
+        Repo.get!(Organization, id)
     end
+
 end

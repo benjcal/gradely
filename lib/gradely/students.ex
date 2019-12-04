@@ -42,12 +42,12 @@ defmodule Gradely.Students do
   end
 
   def create(attrs \\ %{}) do
-    IO.inspect attrs
     %Student{}
     |> Student.changeset(attrs[:student])
-    |> put_assoc(:user, attrs[:user])
-    |> maybe_put_assoc(:courses, attrs[:courses])
+    |> put_assoc(:organization, attrs[:organization])
+    #|> maybe_put_assoc(:courses, attrs[:courses])
     |> Repo.insert()
+    |> IO.inspect
   end
 
 
