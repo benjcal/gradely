@@ -2,6 +2,7 @@ defmodule Gradely.Students do
   import Ecto.Query, warn: false
   import Ecto.Changeset
   alias Gradely.Repo
+
   alias Gradely.Students.Student
   alias Gradely.Users
   alias Gradely.Enrollments.Enrollment
@@ -24,21 +25,23 @@ defmodule Gradely.Students do
          |> Enum.map(fn cu -> cu.course_id end)
 
     case Users.is_admin(user) do
-      true -> Student
-      |> order_by(asc: ^sort)
-      |> where([s], s.organization_id == ^user.organization.id)
-      |> preload(:courses)
-      |> preload([courses: :activities])
-      |> preload([courses: [activities: :grade]])
-      |> Repo.paginate(params)
-      false -> Student
-      |> join(:inner, [s], e in Enrollment, on: s.id == e.student_id)
-      |> where([_, e], e.course_id in ^course_ids)
-      |> distinct([s], s.id)
-      |> preload(:courses)
-      |> preload([courses: :activities])
-      |> preload([courses: [activities: :grade]])
-      |> Repo.paginate(params)
+      true ->
+        Student
+        |> order_by(asc: ^sort)
+        |> where([s], s.organization_id == ^user.organization.id)
+        |> preload(:courses)
+        |> preload([courses: :activities])
+        |> preload([courses: [activities: :grade]])
+        |> Repo.paginate(params)
+      false ->
+        Student
+        |> join(:inner, [s], e in Enrollment, on: s.id == e.student_id)
+        |> where([_, e], e.course_id in ^course_ids)
+        |> distinct([s], s.id)
+        |> preload(:courses)
+        |> preload([courses: :activities])
+        |> preload([courses: [activities: :grade]])
+        |> Repo.paginate(params)
     end
   end
 

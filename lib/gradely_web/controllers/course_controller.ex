@@ -5,7 +5,7 @@ defmodule GradelyWeb.CourseController do
   alias Gradely.Courses.Course
 
   def index(conn, params) do
-    page = Courses.get_page(conn, params)
+    page = Courses.get_table_page(get_user(conn), params)
     render(conn, "index.html",
       courses: page.entries,
       page_number: page.page_number,
@@ -21,10 +21,12 @@ defmodule GradelyWeb.CourseController do
   end
 
   def create(conn, params) do
-    %{"course" => course_params} = params
-    course_params = Map.put(course_params, :user, conn.assigns.current_user)
-    IO.inspect course_params
-    case Courses.create_course(course_params) do
+    attrs = %{
+      organization: get_organization(conn),
+      course: params["course"]
+    }
+
+    case Courses.create(attrs) do
       {:ok, course} ->
         conn
         |> put_flash(:info, "Course created successfully.")

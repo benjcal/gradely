@@ -8,39 +8,41 @@ defmodule Gradely.Courses do
   alias Gradely.Repo
 
   alias Gradely.Courses.Course
+  alias Gradely.Users
+  alias Gradely.CoursesUsers.CourseUser
 
-  def get_by_organization_id(organization_id) when is_integer(organization_id) do
-    Course
-    |> where([c], c.organization_id == ^organization_id)
-    |> Repo.all
-  end
-
-  def list_courses(conn) do
-    user_id = conn.assigns.current_user.id
-
-    Course
-    |> where([c], c.user_id == ^user_id)
-    |> Repo.all
-  end
-
-  def get_courses(ids) do
-    Course
-    |> where([c], c.id in ^ids)
-    |> Repo.all
-  end
-
-  def get_page(conn, params) do
-    user_id = conn.assigns.current_user.id
+  def get_table_page(user, params) do
+    user = user
+           |> Repo.preload(:organization)
 
     sort = case params["sort"] do
       "name" -> :name
       _ -> :id
     end
 
+    course_ids = CourseUser
+         |> join(:inner, [c], c in assoc(c, :course))
+         |> where([cu], cu.user_id == ^user.id)
+         |> Repo.all
+         |> Enum.map(fn cu -> cu.course_id end)
+
+    case Users.is_admin(user) do
+      true ->
+        Course
+        |> where([c], c.organization_id == ^user.organization.id)
+        |> order_by(asc: ^sort)
+        |> Repo.paginate(params)
+      false ->
+        Course
+        |> where([c], c.id in ^course_ids)
+        |> Repo.paginate(params)
+    end
+  end
+
+  def get_by_organization_id(organization_id) when is_integer(organization_id) do
     Course
-    |> order_by(asc: ^sort)
-    |> where([s], s.user_id == ^user_id)
-    |> Repo.paginate(params)
+    |> where([c], c.organization_id == ^organization_id)
+    |> Repo.all
   end
 
   def get_course!(id) do
@@ -51,12 +53,6 @@ defmodule Gradely.Courses do
     %Course{}
     |> Course.changeset(attrs[:course])
     |> put_assoc(:organization, attrs[:organization])
-    |> Repo.insert()
-  end
-
-  def create_course(attrs \\ %{}) do
-    %Course{}
-    |> Course.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -74,7 +70,7 @@ defmodule Gradely.Courses do
     Course.changeset(course, %{})
   end
 
-  def clean_params(params) do
+  defp clean_params(params) do
     case params do
       nil -> []
       _ -> params
