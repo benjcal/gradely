@@ -9,9 +9,9 @@ defmodule Gradely.Courses do
 
   alias Gradely.Courses.Course
 
-  def by_user(user_id) when is_integer(user_id) do
+  def get_by_organization_id(organization_id) when is_integer(organization_id) do
     Course
-    |> where([c], c.user_id == ^user_id)
+    |> where([c], c.organization_id == ^organization_id)
     |> Repo.all
   end
 

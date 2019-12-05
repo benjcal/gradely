@@ -22,13 +22,13 @@ defmodule GradelyWeb.StudentController do
 
     render(conn, "new.html",
       changeset: changeset,
-      courses: Courses.by_user(get_user_id(conn))
+      courses: Courses.get_by_organization_id(get_organization_id(conn))
     )
   end
 
   def create(conn, params) do
     attrs = %{
-      user: get_user(conn),
+      organization: get_organization(conn),
       student: params["student"],
       courses: Courses.get_from_params(params["courses"])
     }

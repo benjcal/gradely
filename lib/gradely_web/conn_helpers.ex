@@ -10,4 +10,18 @@ defmodule GradelyWeb.ConnHelpers do
     get_user(conn)
     |> Map.get(:id)
   end
+
+  def get_organization(%Plug.Conn{} = conn) do
+    get_user(conn)
+    |> Gradely.Repo.preload(:organization)
+    |> Map.get(:organization)
+  end
+
+  def get_organization_id(%Plug.Conn{} = conn) do
+    get_user(conn)
+    |> Gradely.Repo.preload(:organization)
+    |> Map.get(:organization)
+    |> Map.get(:id)
+  end
+
 end

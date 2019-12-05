@@ -66,7 +66,6 @@ defmodule Gradely.Students do
     |> put_assoc(:organization, attrs[:organization])
     #|> maybe_put_assoc(:courses, attrs[:courses])
     |> Repo.insert()
-    |> IO.inspect
   end
 
 
