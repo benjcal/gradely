@@ -28,12 +28,16 @@ defmodule Gradely.Students do
       |> order_by(asc: ^sort)
       |> where([s], s.organization_id == ^user.organization.id)
       |> preload(:courses)
+      |> preload([courses: :activities])
+      |> preload([courses: [activities: :grade]])
       |> Repo.paginate(params)
       false -> Student
       |> join(:inner, [s], e in Enrollment, on: s.id == e.student_id)
       |> where([_, e], e.course_id in ^course_ids)
       |> distinct([s], s.id)
       |> preload(:courses)
+      |> preload([courses: :activities])
+      |> preload([courses: [activities: :grade]])
       |> Repo.paginate(params)
     end
   end

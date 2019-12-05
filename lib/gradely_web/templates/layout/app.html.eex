@@ -24,6 +24,12 @@
       <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
         <i data-feather="book"></i>
       </a>
+      <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+        <i class="material-icons">exit_to_app</i>
+      <% end %>
+      <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
+        <i data-feather="book"></i>
+      </a>
     </nav>
 
     <main class="flex-auto">

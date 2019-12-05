@@ -7,9 +7,6 @@ defmodule Gradely.Users.User do
 
     belongs_to :organization, Gradely.Organizations.Organization
 
-    many_to_many :courses, Gradely.Courses.Course,
-      join_through: Gradely.CoursesUsers.CourseUser
-
     field :type, :integer # 0 = admin, 1 = educator
     timestamps()
   end

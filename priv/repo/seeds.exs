@@ -61,7 +61,7 @@ defmodule Seeds do
     course
   end
 
-  def create_activity(users, courses) do
+  def create_activity(organization, user, course) do
     {:ok, activity} = Gradely.Activities.create(
       %{
         activity: %{
@@ -69,8 +69,9 @@ defmodule Seeds do
           total_value: Enum.random(60..100),
           weight: Enum.random(10..40)
         },
-        course: List.first(Enum.take_random(courses, 1)),
-        user: List.first(Enum.take_random(users, 1))
+        organization: organization,
+        course: course,
+        user: user,
       }
     )
 
@@ -90,7 +91,16 @@ defmodule Seeds do
 
     Enum.each(students, fn student -> enroll_student(student, courses) end)
 
-    #activities = Enum.map(0..@activities_num, fn _ -> create_activity(users, courses) end)
+    Gradely.CoursesUsers.add_user_to_course(Enum.at(users, 1), Enum.at(courses, 0))
+
+    activities = Enum.map(0..@activities_num,
+      fn _ -> create_activity(
+        Enum.at(organizations, 0),
+        Enum.at(users, 0),
+        List.first(Enum.take_random(courses, 1))
+      )
+      end
+    )
   end
 
   def run_test do

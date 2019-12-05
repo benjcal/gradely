@@ -38,6 +38,7 @@
         <td>
           <form class="grades inline" id="<%= "grade#{@student.id}_#{activity.id}" %>" action="<%= form_action %>" method="post" up-target="<%= "#grade#{@student.id}_#{activity.id}" %>">
             <input class="border w-16" type="text" name="grade[value]" value="<%= if grade_id, do: activity.grade.value %>">
+            <div class="absolute h-6 w-12 bg-white rounded shadow">aa</div>
             <%= if grade_id do %>
               <input name="grade[id]" type="hidden" value="<%= grade_id %>">
               <input name="_method" v type="hidden" value="PUT">

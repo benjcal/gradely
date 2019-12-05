@@ -55,6 +55,7 @@ defmodule Gradely.Activities do
     |> Activity.changeset(attrs[:activity])
     |> put_assoc(:user, attrs[:user])
     |> put_assoc(:course, attrs[:course])
+    |> put_assoc(:organization, attrs[:organization])
     |> Repo.insert()
   end
 
