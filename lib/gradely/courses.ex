@@ -45,7 +45,6 @@ defmodule Gradely.Courses do
 
   def get_course!(id) do
     Repo.get!(Course, id)
-    |> Repo.preload(:activities)
   end
 
   def create(attrs \\ %{}) do

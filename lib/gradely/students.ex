@@ -1,10 +1,11 @@
 defmodule Gradely.Students do
   import Ecto.Query, warn: false
   import Ecto.Changeset
-  import Gradely.Utils
   alias Gradely.Repo
   alias Gradely.Students.Student
   alias Gradely.Users
+  alias Gradely.Enrollments.Enrollment
+  alias Gradely.CoursesUsers.CourseUser
 
   def get_table_page(user, params) do
     user = user
@@ -16,25 +17,25 @@ defmodule Gradely.Students do
       _ -> :id
     end
 
-    # TODO
-    # admin get students from all organization
-    # if educator get student from courses they are assigned to
+    course_ids = CourseUser
+         |> join(:inner, [c], c in assoc(c, :course))
+         |> where([cu], cu.user_id == ^user.id)
+         |> Repo.all
+         |> Enum.map(fn cu -> cu.course_id end)
 
     case Users.is_admin(user) do
       true -> Student
       |> order_by(asc: ^sort)
       |> where([s], s.organization_id == ^user.organization.id)
       |> preload(:courses)
-      #|> preload([courses: :activities])
-      #|> preload([courses: [activities: :grade]])
       |> Repo.paginate(params)
-      false -> nil
+      false -> Student
+      |> join(:inner, [s], e in Enrollment, on: s.id == e.student_id)
+      |> where([_, e], e.course_id in ^course_ids)
+      |> distinct([s], s.id)
+      |> preload(:courses)
+      |> Repo.paginate(params)
     end
-
-
-
-    # Users.update_preferences(conn.assigns.current_user, %{student_table_sort: "name"})
-
   end
 
   def get_student!(id) do
