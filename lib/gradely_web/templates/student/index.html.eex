@@ -1,31 +1,46 @@
+<!-- HEADER -->
 <div role=header class="flex items-center justify-between h-16 rounded-lg">
-  <span>
-    <span class="flex items-center text-gray-700 text-2xl">
-      <i data-feather="users"></i>
-      <span class="pl-2">Students</span>
-    </span>
+
+  <!-- PAGE NAME -->
+  <span class="flex items-center text-gray-700 text-2xl">
+    <i data-feather="users"></i>
+    <span class="pl-2">Students</span>
   </span>
+
+  <!-- TOP MENU -->
   <span>
-    <a href="/students/new" up-target=".container" class="px-2 h-8 flex items-center justify-center rounded bg-gray-500 text-white font-semibold hover:bg-gray-600 shadow">
-      <i class="material-icons pr-2" style="font-size: 20px;">add</i>
-      Add Student
+    <a href="/students/new" up-target=".container" class="px-2 h-8 flex items-center justify-center rounded bg-gray-500 text-white hover:bg-gray-600 shadow">
+      <i data-feather="plus" class="w-6 h-6 pr-2"></i>
+      <span class="font-semibold">Add Student</span>
     </a>
   </span>
+
 </div>
 
+<!-- BODY -->
 <div role=body class="bg-white rounded-lg py-4">
 
+  <!-- TABLE -->
+  <table class="w-full">
 
-  <%= c :table, assigns do %>
+    <!-- TABLE HEADER -->
+    <tr height="30" class="text-xs text-red-800 font-semibold">
 
-    <%= c :table_header, assigns do %>
-      <td></td>
-      <td class="cursor-pointer" data-sort='<%= uri_add_params(@conn.params, %{"sort" => "name"})%>' onclick='window.location.assign(this.dataset.sort)'>NAME</td>
+      <td role="avatar"></td>
+
+      <td
+        class="cursor-pointer"
+        data-sort='<%= uri_add_params(@conn.params, %{"sort" => "name"})%>'
+        onclick='window.location.assign(this.dataset.sort)'
+        >
+        NAME
+      </td>
       <td>AVERAGE GRADE</td>
       <td>ACTIVITIES GRADED</td>
-    <% end %>
+    </tr>
 
-    <%= c :table_body, assigns do %>
+    <!-- TABLE BODY -->
+    <tbody>
       <%= for student <- @students do %>
         <tr
           height="48"
@@ -33,6 +48,7 @@
           onclick="window.location.assign('<%=Routes.student_path(@conn, :show, student)%>')"
           >
 
+          <!-- AVATAR -->
           <td align="center">
             <div
               class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 font-semibold"
@@ -42,10 +58,12 @@
             </div>
           </td>
 
+          <!-- NAME -->
           <td>
             <span class="black-70 pr4 fw5"><%= "#{student.first_name} #{student.last_name}" %></span>
           </td>
 
+          <!-- AVERAGE GRADE -->
           <td>
             <div class="w-32 bg-gray-300 rounded">
               <div class="w-32 bg-green-400 rounded" style="width: <%= average_grade(student.courses) %>%; height: 10px"></div>
@@ -53,15 +71,15 @@
             <%= average_grade(student.courses) %>%
           </td>
 
+          <!-- GRADED ACTIVITIES -->
           <td>
             <%= length activities_graded(student.courses) %>/<%= length activities_all(student.courses) %>
           </td>
 
         </tr>
       <% end %>
-    <% end %>
-
-  <% end %>
+    </tbody>
+  </table>
 </div>
 
 
