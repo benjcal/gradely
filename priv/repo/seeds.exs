@@ -78,14 +78,11 @@ defmodule Seeds do
     activity
   end
 
-  def enroll_student(student, courses) do
+  def add_courses_to_student(student, courses) do
     courses = Enum.take_random(courses, Enum.random(1..div(@courses_num, 2)))
-    Gradely.Enrollments.enroll_student(student, courses)
+    Gradely.Students.add_courses(student ,courses)
   end
 
-  def add_student_to_course(course, student) do
-
-  end
 
   def run do
     organizations = Enum.map(@organizations, &create_organization/1)
@@ -93,8 +90,7 @@ defmodule Seeds do
     students = Enum.map(0..@students_num, fn _ -> create_student(Enum.at(organizations, 0)) |> Gradely.Repo.preload(:courses) end)
     courses = Enum.map(0..@courses_num, fn _ -> create_course(Enum.at(organizations, 0)) end)
 
-    #Enum.each(students, fn student -> enroll_student(student, courses) end)
-    #Enum.each(students, fn student -> enroll_student(student, courses) end)
+    Enum.each(students, fn student -> add_courses_to_student(student, courses) end)
 
     Gradely.CoursesUsers.add_user_to_course(Enum.at(users, 1), Enum.at(courses, 0))
 
