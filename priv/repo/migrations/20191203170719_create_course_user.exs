@@ -10,5 +10,7 @@ defmodule Gradely.Repo.Migrations.CreateCourseUser do
       timestamps()
     end
 
+    create unique_index(:courses_users, [:course_id, :user_id])
+
   end
 end

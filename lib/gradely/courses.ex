@@ -9,6 +9,8 @@ defmodule Gradely.Courses do
 
   alias Gradely.Courses.Course
   alias Gradely.Users
+  alias Gradely.Users.User
+  alias Gradely.Students.Student
   alias Gradely.CoursesUsers.CourseUser
 
   def get_table_page(user, params) do
@@ -74,6 +76,34 @@ defmodule Gradely.Courses do
 
   def change_course(%Course{} = course) do
     Course.changeset(course, %{})
+  end
+
+  def add_user(%Course{} = course, %User{} = user) do
+
+  end
+
+  def add_student(%Course{} = course, %Student{} = student) do
+    course = Repo.preload(course, :students)
+
+    if Enum.member?(course.students, student) do
+      course
+    else
+      course
+      |> Ecto.Changeset.change
+      |> Ecto.Changeset.put_assoc(:students, [student | course.students])
+      |> Repo.update!
+    end
+  end
+
+  def add_students(%Course{} = course, students) do
+    course = Repo.preload(course, :students)
+
+    students_to_add = Enum.filter(students, fn s -> !Enum.member?(course.students, s) end)
+
+    course
+    |> Ecto.Changeset.change
+    |> Ecto.Changeset.put_assoc(:students, students_to_add ++ course.students)
+    |> Repo.update!
   end
 
   defp clean_params(params) do

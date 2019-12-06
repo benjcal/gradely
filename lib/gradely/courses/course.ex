@@ -7,7 +7,7 @@ defmodule Gradely.Courses.Course do
 
     field :name, :string
     many_to_many :students, Gradely.Students.Student,
-      join_through: Gradely.Enrollments.Enrollment
+      join_through: Gradely.CourseStudent
 
     many_to_many :users, Gradely.Users.User,
       join_through: Gradely.CoursesUsers.CourseUser
