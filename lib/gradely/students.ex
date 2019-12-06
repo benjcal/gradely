@@ -5,8 +5,8 @@ defmodule Gradely.Students do
 
   alias Gradely.Students.Student
   alias Gradely.Users
-  alias Gradely.Enrollments.Enrollment
   alias Gradely.CoursesUsers.CourseUser
+  alias Gradely.CourseStudent
   alias Gradely.Courses.Course
 
   def get_table_page(user, params) do
@@ -36,7 +36,7 @@ defmodule Gradely.Students do
         |> Repo.paginate(params)
       false ->
         Student
-        |> join(:inner, [s], e in Enrollment, on: s.id == e.student_id)
+        |> join(:inner, [s], e in CourseStudent, on: s.id == e.student_id)
         |> where([_, e], e.course_id in ^course_ids)
         |> distinct([s], s.id)
         |> preload(:courses)
