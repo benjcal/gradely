@@ -2,7 +2,6 @@ defmodule Gradely.Grades.Grade do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key false
   schema "grades" do
     belongs_to :student, Gradely.Students.Student
     belongs_to :activity, Gradely.Activities.Activity

@@ -36,7 +36,7 @@ defmodule GradelyWeb.Router do
       resources "/activities", ActivityController
     end
 
-    resources "/grades", GradeController
+    post "/grades", GradeController, :grade
     resources "/students", StudentController
     resources "/tracks", TrackController
   end
