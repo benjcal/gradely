@@ -45,6 +45,12 @@ defmodule Gradely.Courses do
     |> Repo.all
   end
 
+  def get_by_ids(ids) do
+    Course
+    |> where([c], c.id in ^ids)
+    |> Repo.all
+  end
+
   def get_course!(id) do
     Repo.get!(Course, id)
   end
@@ -82,6 +88,6 @@ defmodule Gradely.Courses do
   def get_from_params(params) do
     params
     |> clean_params
-    |> get_courses
+    |> get_by_ids
   end
 end

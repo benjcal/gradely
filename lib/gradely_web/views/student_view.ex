@@ -25,11 +25,11 @@ defmodule GradelyWeb.StudentView do
   def average_grade(courses) do
     activities = activities_graded(courses)
     total = activities
-    |> Enum.map(fn a -> (a.grade.value/a.total_value) * 100 end)
-    |> Enum.sum
+    #|> Enum.map(fn a -> (a.grade.value/a.total_value) * 100 end)
+    #|> Enum.sum
 
 
-
+    0
   end
 
 

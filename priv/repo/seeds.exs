@@ -86,21 +86,21 @@ defmodule Seeds do
   def run do
     organizations = Enum.map(@organizations, &create_organization/1)
     users = Enum.map(@users, fn u -> create_user(u, Enum.at(organizations, 0)) end)
-    #students = Enum.map(0..@students_num, fn _ -> create_student(Enum.at(organizations, 0)) |> Gradely.Repo.preload(:courses) end)
-    #courses = Enum.map(0..@courses_num, fn _ -> create_course(Enum.at(organizations, 0)) end)
+    students = Enum.map(0..@students_num, fn _ -> create_student(Enum.at(organizations, 0)) |> Gradely.Repo.preload(:courses) end)
+    courses = Enum.map(0..@courses_num, fn _ -> create_course(Enum.at(organizations, 0)) end)
 
-    #Enum.each(students, fn student -> enroll_student(student, courses) end)
+    Enum.each(students, fn student -> enroll_student(student, courses) end)
 
-    #Gradely.CoursesUsers.add_user_to_course(Enum.at(users, 1), Enum.at(courses, 0))
+    Gradely.CoursesUsers.add_user_to_course(Enum.at(users, 1), Enum.at(courses, 0))
 
-    #activities = Enum.map(0..@activities_num,
-      #fn _ -> create_activity(
-        #Enum.at(organizations, 0),
-        #Enum.at(users, 0),
-        #Enum.at(courses, 0)
-      #)
-      #end
-    #)
+    activities = Enum.map(0..@activities_num,
+      fn _ -> create_activity(
+        Enum.at(organizations, 0),
+        Enum.at(users, 0),
+        Enum.at(courses, 0)
+      )
+      end
+    )
 
   end
 
