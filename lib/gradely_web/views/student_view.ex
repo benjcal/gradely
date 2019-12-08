@@ -31,10 +31,17 @@ defmodule GradelyWeb.StudentView do
 
   def grade_id(student, activity) do
     student_id = Integer.to_string(student.id)
-    activity_id = Integer.to_string(student.id)
+    activity_id = Integer.to_string(activity.id)
 
-    student_id <> "_" <> activity_id
+    "grade_" <> student_id <> "_" <> activity_id
   end
 
+  def grade_id_late(student, activity) do
+    grade_id(student, activity) <> "_late"
+  end
+
+  def grade_id_missing(student, activity) do
+    grade_id(student, activity) <> "_missing"
+  end
 
 end

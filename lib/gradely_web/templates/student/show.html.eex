@@ -44,65 +44,43 @@
             up-target="<%= grade_id(@student, activity) %>"
             >
 
+
+            <!-- STYLE: select flags functionality -->
+            <style>
+              #<%= grade_id_late(@student, activity) %>:checked + label {
+                color: black
+              }
+              #<%= grade_id_missing(@student, activity) %>:checked + label {
+                color: black
+              }
+            </style>
+
+
             <!-- GRADE INPUT -->
             <input
               type="text"
               class="border w-16 rounded px-1 text-right"
               name="grade[value]"
-              value="<%= if grade, do: grade.value %>"
-              >
-
+              value="<%= if grade, do: grade.value %>">
 
             <!-- GRADE TOOLS DROPDOWN -->
             <div class="absolute flex justify-between ml-4 w-48 p-2 bg-white rounded shadow">
 
               <!-- BUTTONS -->
               <div role="left" class="flex">
-
-                <style>
-                  #<%= "grade#{@student.id}_#{activity.id}_note" %>:checked  + label {
-                    color: black
-                  }
-
-                  #<%= "grade#{@student.id}_#{activity.id}_note" %>:checked  + #<%= "grade#{@student.id}_#{activity.id}_note_textarea" %> {
-                    display: block
-                  }
-                </style>
-
-                <textarea
-                  id='<%= "grade#{@student.id}_#{activity.id}_note_textarea" %>'
-                  class="bg-white absolute mt-8 border hidden"
-                  ></textarea>
-                <!-- NOTE BUTTON -->
-                <div
-                  class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
-                  up-tooltip="Note"
-                  >
-
-
-
-                  <input type="checkbox" id='<%= "grade#{@student.id}_#{activity.id}_note" %>' class="hidden">
-                  <label for='<%= "grade#{@student.id}_#{activity.id}_note" %>'>
-                    <i data-feather="message-square" class="w-4"></i>
-                  </label>
-
-                </div>
-
                 <!-- LATE BUTTON -->
                 <div
                   class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
-                  up-tooltip="Late"
-                  >
+                  up-tooltip="Late">
 
-                  <style>
-                    #<%= "grade#{@student.id}_#{activity.id}_late" %>:checked  + label {
-                      color: black
-                    }
-                  </style>
 
-                  <input type="checkbox" id='<%= "grade#{@student.id}_#{activity.id}_late" %>' name="grade[late]" class="hidden">
+                  <input
+                    type="checkbox"
+                    id='<%= grade_id_late(@student, activity) %>'
+                    name="grade[late]"
+                    class="hidden">
 
-                  <label for='<%= "grade#{@student.id}_#{activity.id}_late" %>'>
+                  <label for='<%= grade_id_late(@student, activity) %>'>
                     <i data-feather="clock" class="w-4"></i>
                   </label>
 
@@ -110,22 +88,30 @@
 
                 <!-- MISSING BUTTON -->
                 <div
-                  class="flex justify-center items-center w-6 h-6 ml-2 rounded bg-gray-100 text-gray-400"
-                  up-tooltip="Missing"
-                  >
-                  <i data-feather="download" class="w-4"></i>
-                </div>
+                  class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
+                  up-tooltip="Missing">
 
+                  <input
+                    type="checkbox"
+                    id='<%= grade_id_missing(@student, activity) %>'
+                    name="grade[missing]"
+                    class="hidden">
+
+                  <label for='<%= grade_id_missing(@student, activity) %>'>
+                    <i data-feather="download" class="w-4"></i>
+                  </label>
+                </div>
 
               </div>
 
               <div role="right" class="flex">
-
                 <div
                   class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
                   up-tooltip="Cancel"
                   >
-                  <i data-feather="x" class="w-4"></i>
+                  <a href="">
+                    <i data-feather="x" class="w-4"></i>
+                  </a>
                 </div>
 
                 <div
