@@ -7,6 +7,8 @@ defmodule Gradely.Grades.Grade do
     belongs_to :activity, Gradely.Activities.Activity
     field :value, :float
     field :late, :boolean
+    field :missing, :boolean
+    field :comment, :string
 
     timestamps()
   end

@@ -92,7 +92,6 @@ defmodule Seeds do
 
     Enum.each(students, fn student -> add_courses_to_student(student, courses) end)
 
-    Gradely.CoursesUsers.add_user_to_course(Enum.at(users, 1), Enum.at(courses, 0))
 
     activities = Enum.map(0..@activities_num,
       fn _ -> create_activity(
