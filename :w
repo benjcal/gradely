@@ -41,17 +41,17 @@
             id="<%= grade_id(@student, activity) %>"
             action="/grades"
             method="post"
-            up-target="#<%= grade_id(@student, activity) %>"
+            up-target="<%= grade_id(@student, activity) %>"
             >
 
 
             <!-- STYLE: select flags functionality -->
             <style>
               #<%= grade_id_late(@student, activity) %>:checked + label {
-                color: #dd6b20;
+                color: black
               }
               #<%= grade_id_missing(@student, activity) %>:checked + label {
-                color: #c53030;
+                color: black
               }
             </style>
 
@@ -65,15 +65,15 @@
 
 
               <!-- GRADE TOOLS DROPDOWN -->
-              <div class="absolute ml w-56 p-2 bg-white border rounded shadow hidden">
+              <div class="absolute ml-4 w-48 p-2 bg-white rounded shadow hidden">
 
                 <!-- BUTTONS -->
-                <div class="flex justify-between w-full pb-2">
+                <div class="flex justify-between w-48 p-2">
                   <div role="left" class="flex">
 
                     <!-- LATE BUTTON -->
                     <div
-                      class="flex justify-center items-center w-6 h-6 mr-2 rounded bg-gray-100 text-gray-400 hover:text-orange-600 hover:bg-gray-300"
+                      class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
                       up-tooltip="Late">
 
 
@@ -91,7 +91,7 @@
 
                     <!-- MISSING BUTTON -->
                     <div
-                      class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400 hover:bg-gray-300 hover:text-red-700"
+                      class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
                       up-tooltip="Missing">
 
                       <input
@@ -109,22 +109,19 @@
 
                   <div role="right" class="flex">
                     <div
-                      class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400 hover:bg-gray-300 hover:text-red-500"
+                      class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
                       up-tooltip="Cancel"
                       >
-                      <a
-                        href='<%= Routes.student_path(@conn, :show, @student.id) %>'
-                        up-target="#<%= grade_id(@student, activity) %>">
-
+                      <a href="">
                         <i data-feather="x" class="w-4"></i>
                       </a>
                     </div>
 
                     <div
-                      class="flex justify-center items-center w-6 h-6 ml-2 rounded bg-gray-100 text-gray-400 hover:bg-gray-300 hover:text-green-400"
+                      class="flex justify-center items-center w-6 h-6 ml-2 rounded bg-gray-100 text-gray-400"
                       up-tooltip="Save"
                       >
-                      <button type="submit" form="<%= grade_id(@student, activity) %>">
+                      <button type="submit">
                         <i data-feather="check" class="w-4"></i>
                       </button>
                     </div>
@@ -133,7 +130,7 @@
                 </div>
 
                 <textarea
-                  class="w-full h-32 p-2 border rounded resize-none"
+                  class="w-full h-24 p-2 border rounded resize-none"
                   placeholder="Comments..."
                   ></textarea>
               </div>

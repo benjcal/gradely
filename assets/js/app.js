@@ -6,14 +6,14 @@ import "./globalSearch"
 import feather from "feather-icons"
 
 up.compiler('.grade', (e) => {
-  const input = e.children[0]
-  const popup = e.children[1]
+  const input = e.children[1]
+  const popup = e.children[2]
 
   input.onfocus = () => {
     // write function to close all other popups on the page
     const allGrades = document.getElementsByClassName('grade')
     for (const g of allGrades) {
-      const popup = g.children[1]
+      const popup = g.children[2]
       popup.classList.add('hidden')
     }
 
@@ -24,11 +24,11 @@ up.compiler('.grade', (e) => {
     //up.submit(e)
   }
 
+  feather.replace()
 })
 
 
 up.compiler('.container', (e) => {
   feather.replace()
 })
-
 
