@@ -42,6 +42,7 @@
             action="/grades"
             method="post"
             up-target="#<%= grade_id(@student, activity) %>"
+            autocomplete="off"
             >
 
 
@@ -135,6 +136,7 @@
                 <textarea
                   class="w-full h-32 p-2 border rounded resize-none"
                   placeholder="Comments..."
+                  name="grade[comments]"
                   ></textarea>
               </div>
 

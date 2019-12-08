@@ -6,6 +6,7 @@ defmodule GradelyWeb.GradeController do
 
   def grade(conn, params) do
     %{"grade" => grade_params} = params
+    IO.inspect grade_params
 
 
     case Grades.grade(grade_params) do
