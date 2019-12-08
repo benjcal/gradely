@@ -1,4 +1,5 @@
-<%= c :container, assigns do %>
+<div class="m-3 p-4 rounded bg-white shadow">
+  <!-- HEADER - TODO: UPDATE TO NEW STYLE -->
   <% header_params = %{icon: "face", text: "Show Student"} %>
   <%= c :container_header, Map.merge(assigns, header_params) %>
 
@@ -33,27 +34,88 @@
       <tr class="text-gray-700">
         <td class="pr-24 pb-8"><%= activity.name %></td>
         <td>
-          <form class="grade inline" id="<%= "grade#{@student.id}_#{activity.id}" %>" action="/grades" method="post" up-target="<%= "#grade#{@student.id}_#{activity.id}" %>">
-            <input class="border w-16" type="text" name="grade[value]" value="<%= if grade, do: activity.grade.value %>">
+
+          <!-- GRADE FORM -->
+          <form
+            class="grade inline"
+            id="<%= grade_id(@student, activity) %>"
+            action="/grades"
+            method="post"
+            up-target="<%= grade_id(@student, activity) %>"
+            >
+
+            <!-- GRADE INPUT -->
+            <input
+              type="text"
+              class="border w-16 rounded px-1 text-right"
+              name="grade[value]"
+              value="<%= if grade, do: grade.value %>"
+              >
 
 
-            <div class="hidden absolute flex justify-between ml-6 w-40 p-2 bg-white rounded shadow">
+            <!-- GRADE TOOLS DROPDOWN -->
+            <div class="absolute flex justify-between ml-4 w-48 p-2 bg-white rounded shadow">
 
+              <!-- BUTTONS -->
               <div role="left" class="flex">
 
+                <style>
+                  #<%= "grade#{@student.id}_#{activity.id}_note" %>:checked  + label {
+                    color: black
+                  }
+
+                  #<%= "grade#{@student.id}_#{activity.id}_note" %>:checked  + #<%= "grade#{@student.id}_#{activity.id}_note_textarea" %> {
+                    display: block
+                  }
+                </style>
+
+                <textarea
+                  id='<%= "grade#{@student.id}_#{activity.id}_note_textarea" %>'
+                  class="bg-white absolute mt-8 border hidden"
+                  ></textarea>
+                <!-- NOTE BUTTON -->
+                <div
+                  class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
+                  up-tooltip="Note"
+                  >
+
+
+
+                  <input type="checkbox" id='<%= "grade#{@student.id}_#{activity.id}_note" %>' class="hidden">
+                  <label for='<%= "grade#{@student.id}_#{activity.id}_note" %>'>
+                    <i data-feather="message-square" class="w-4"></i>
+                  </label>
+
+                </div>
+
+                <!-- LATE BUTTON -->
                 <div
                   class="flex justify-center items-center w-6 h-6 rounded bg-gray-100 text-gray-400"
                   up-tooltip="Late"
                   >
-                  <i data-feather="clock" class="w-4"></i>
+
+                  <style>
+                    #<%= "grade#{@student.id}_#{activity.id}_late" %>:checked  + label {
+                      color: black
+                    }
+                  </style>
+
+                  <input type="checkbox" id='<%= "grade#{@student.id}_#{activity.id}_late" %>' name="grade[late]" class="hidden">
+
+                  <label for='<%= "grade#{@student.id}_#{activity.id}_late" %>'>
+                    <i data-feather="clock" class="w-4"></i>
+                  </label>
+
                 </div>
 
+                <!-- MISSING BUTTON -->
                 <div
                   class="flex justify-center items-center w-6 h-6 ml-2 rounded bg-gray-100 text-gray-400"
                   up-tooltip="Missing"
                   >
                   <i data-feather="download" class="w-4"></i>
                 </div>
+
 
               </div>
 
@@ -98,4 +160,4 @@
     <%= c :link_button, Map.merge(assigns, %{text: "Delete", to: Routes.student_path(@conn, :delete, @student) }) %>
   </div>
 
-<% end %>
+</div>
