@@ -8,9 +8,9 @@ defmodule Gradely.Grades do
   def grade(attrs \\ %{}) do
     student_id = String.to_integer(attrs["student_id"], 10)
     activity_id = String.to_integer(attrs["activity_id"], 10)
+    activity_total = elem(Float.parse(attrs["activity_total"]), 0)
 
-    attrs = %{attrs | "value" => resolve_value(attrs["value"])}
-    #attrs = %{attrs | "value" => "42"}
+    attrs = %{attrs | "value" => resolve_value(attrs["value"], activity_total)}
 
     grade =
       Grade
@@ -32,19 +32,22 @@ defmodule Gradely.Grades do
     {:ok, nil}
   end
 
-  def resolve_value(value) do
+  def resolve_value(value, total) do
     if has_operator(value) do
-      case get_vals(value) do
+      case get_vals(value, total) do
         {:add, l, r} -> l + r
         {:sub, l, r} -> l - r
       end
     else
-        value
+        case has_percent(value) do
+          true -> resolve_percent(value, total)
+          false -> value
+        end
     end
   end
 
 
-  defp get_vals(str) do
+  defp get_vals(str, total) do
     if String.contains?(str, "+") do
       l =
         str
@@ -58,8 +61,7 @@ defmodule Gradely.Grades do
         |> String.split("+")
         |> Enum.at(1)
         |> String.trim
-        |> Float.parse
-        |> elem(0)
+        |> resolve_percent(total)
       {:add, l, r}
     else
       l =
@@ -74,8 +76,7 @@ defmodule Gradely.Grades do
         |> String.split("-")
         |> Enum.at(1)
         |> String.trim
-        |> Float.parse
-        |> elem(0)
+        |> resolve_percent(total)
       {:sub, l, r}
     end
   end
@@ -83,6 +84,31 @@ defmodule Gradely.Grades do
   defp has_operator(str) do
     String.contains?(str, "+") or
     String.contains?(str, "-")
+  end
+
+
+  defp has_percent(str) do
+    String.contains?(str, "%")
+  end
+
+  defp resolve_percent(value, total) do
+    if has_percent(value) do
+      value = value
+                |> String.replace("%", "")
+                |> String.trim
+                |> Float.parse()
+                |> elem(0)
+
+      (total * value) / 100
+    else
+        if is_bitstring(value) do
+          value
+          |> Float.parse
+          |> elem(0)
+        else
+          value
+        end
+    end
   end
 
 end

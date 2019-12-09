@@ -60,7 +60,7 @@
             <!-- GRADE INPUT -->
             <input
               type="text"
-              class="border w-16 rounded px-1 text-right"
+              class="border w-24 rounded pl-1 border-transparent focus:border-gray-400 text-right font-semibold"
               name="grade[value]"
               value="<%= if grade, do: grade.value %>">
 
@@ -143,10 +143,10 @@
 
             <input name="grade[student_id]" type="hidden" value="<%= @student.id %>">
             <input name="grade[activity_id]" type="hidden" value="<%= activity.id %>">
-            <input name="grade[activity_total_value]" type="hidden" value="<%= activity.total_value %>">
+            <input name="grade[activity_total]" type="hidden" value="<%= activity.total_value %>">
             <input name="_csrf_token" type="hidden" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
           </form>
-          <span>/<%= activity.total_value %></span>
+          <span>out of <%= activity.total_value %></span>
         </td>
       </tr>
     <% end %>

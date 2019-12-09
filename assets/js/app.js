@@ -20,9 +20,9 @@ up.compiler('.grade', (e) => {
     popup.classList.remove('hidden')
   }
 
-  input.onblur = () => {
+  //input.onblur = () => {
     //up.submit(e)
-  }
+  //}
 
   feather.replace()
 })
