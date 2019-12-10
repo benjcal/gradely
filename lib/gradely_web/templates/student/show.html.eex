@@ -5,8 +5,7 @@
 
   <div
     class="w-32 h-32 flex justify-center items-center rounded-full text-gray-100 text-4xl font-semibold"
-    style="background: #<%= color(@student.first_name <> @student.last_name)%>"
-  >
+    style="background: #<%= color(@student.first_name <> @student.last_name)%>">
     <%= String.at(@student.first_name, 0) <> String.at(@student.last_name, 0) %>
   </div>
 
