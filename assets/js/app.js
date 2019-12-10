@@ -4,6 +4,15 @@ import "unpoly/dist/unpoly.min.css"
 import "../css/app.css"
 import "./globalSearch"
 import feather from "feather-icons"
+import Chart from 'chart.js'
+
+up.compiler('.student-graph', (e) => {
+  const lg = document.getElementById('last-grades')
+  const data = JSON.parse(lg.dataset.data)
+  const c = new Chart(lg, data)
+})
+
+
 
 up.compiler('.grade', (e) => {
   const input = e.children[1]

@@ -8,6 +8,7 @@ defmodule Gradely.Repo.Migrations.CreateActivities do
       add :course_id, references(:courses), null: false
 
       add :name, :string
+      add :due_date, :date
       add :total_value, :float
       add :weight, :float
 
