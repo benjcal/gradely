@@ -9,7 +9,7 @@ defmodule Gradely.Students.Student do
     field :last_name, :string
 
     many_to_many :courses, Gradely.Courses.Course,
-      join_through: Gradely.CourseStudent, on_replace: :delete
+      join_through: Gradely.Courses.CourseStudent, on_replace: :delete
 
     timestamps()
   end

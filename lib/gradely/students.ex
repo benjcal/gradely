@@ -5,8 +5,8 @@ defmodule Gradely.Students do
 
   alias Gradely.Students.Student
   alias Gradely.Users
-  alias Gradely.CoursesUsers.CourseUser
-  alias Gradely.CourseStudent
+  alias Gradely.Courses.CourseUser
+  alias Gradely.Courses.CourseStudent
   alias Gradely.Courses.Course
 
   def get_table_page(user, params) do

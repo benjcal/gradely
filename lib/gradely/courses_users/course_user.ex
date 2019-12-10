@@ -1,4 +1,4 @@
-defmodule Gradely.CoursesUsers.CourseUser do
+defmodule Gradely.Courses.CourseUser do
   use Ecto.Schema
   import Ecto.Changeset
 
