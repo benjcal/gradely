@@ -8,7 +8,7 @@ defmodule Gradely.Grades.Grade do
     field :value, :float
     field :late, :boolean
     field :missing, :boolean
-    field :comment, :string
+    field :comments, :string
 
     timestamps()
   end
@@ -16,7 +16,7 @@ defmodule Gradely.Grades.Grade do
   @doc false
   def changeset(grade, attrs) do
     grade
-    |> cast(attrs, [:student_id, :activity_id, :value])
+    |> cast(attrs, [:student_id, :activity_id, :value, :late, :missing, :comments])
     |> validate_required([])
   end
 end

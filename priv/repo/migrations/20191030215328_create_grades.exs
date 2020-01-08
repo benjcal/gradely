@@ -8,7 +8,7 @@ defmodule Gradely.Repo.Migrations.CreateGrades do
       add :value      , :float
       add :late       , :boolean
       add :missing    , :boolean
-      add :comment    , :text
+      add :comments   , :text
 
       timestamps()
     end

@@ -13,7 +13,8 @@ defmodule Seeds do
 
   @students_num 60
   @courses_num 18
-  @activities_num 8
+  @activities_num 3
+  @activity_types ["Quiz", "Exam", "Reading", "Assignment"]
 
   def create_organization(organization) do
     %Gradely.Organizations.Organization{
@@ -61,15 +62,14 @@ defmodule Seeds do
     course
   end
 
-  def create_activity(organization, user, course) do
+  def create_activity(course, user) do
     {:ok, activity} = Gradely.Activities.create(
       %{
         activity: %{
-          name: Faker.StarWars.planet,
+          name: "#{Faker.Superhero.name} #{}",
           total_value: Enum.random(60..100),
           weight: Enum.random(10..40)
         },
-        organization: organization,
         course: course,
         user: user,
       }
@@ -83,24 +83,36 @@ defmodule Seeds do
     Gradely.Students.add_courses(student ,courses)
   end
 
+  def add_course_to_student(student, courses) do
+    courses = Enum.take_random(courses, Enum.random(1..div(@courses_num, 2)))
+    Gradely.Students.add_courses(student ,courses)
+  end
+
+  def create_activities_for_course(course, user) do
+    course = Gradely.Repo.preload(course, :activities)
+    course
+
+    Enum.each(0..@activities_num, fn _ -> create_activity(course, user) end)
+  end
 
   def run do
     organizations = Enum.map(@organizations, &create_organization/1)
     users = Enum.map(@users, fn u -> create_user(u, Enum.at(organizations, 0)) end)
-    students = Enum.map(0..@students_num, fn _ -> create_student(Enum.at(organizations, 0)) |> Gradely.Repo.preload(:courses) end)
-    courses = Enum.map(0..@courses_num, fn _ -> create_course(Enum.at(organizations, 0)) end)
+    # students = Enum.map(0..@students_num, fn _ -> create_student(Enum.at(organizations, 0)) |> Gradely.Repo.preload(:courses) end)
+    # courses = Enum.map(0..@courses_num, fn _ -> create_course(Enum.at(organizations, 0)) end)
 
-    Enum.each(students, fn student -> add_courses_to_student(student, courses) end)
+    # Enum.each(students, fn student -> add_courses_to_student(student, courses) end)
+
+    # Enum.each(courses, fn course -> create_activities_for_course(course, Enum.at(users, 0)) end)
 
 
-    activities = Enum.map(0..@activities_num,
-      fn _ -> create_activity(
-        Enum.at(organizations, 0),
-        Enum.at(users, 0),
-        Enum.at(courses, 0)
-      )
-      end
-    )
+    # activities = Enum.map(0..@activities_num,
+    #   fn _ -> create_activity(
+    #     Enum.at(courses, 0),
+    #     Enum.at(users, 0)
+    #   )
+    #   end
+    # )
 
   end
 

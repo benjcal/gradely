@@ -3,6 +3,7 @@ defmodule GradelyWeb.CourseController do
 
   alias Gradely.Courses
   alias Gradely.Courses.Course
+  alias Gradely.Repo
 
   def index(conn, params) do
     page = Courses.get_table_page(get_user(conn), params)
@@ -39,6 +40,8 @@ defmodule GradelyWeb.CourseController do
 
   def show(conn, %{"id" => id}) do
     course = Courses.get_course!(id)
+      |> Repo.preload(:activities)
+
     render(conn, "show.html", course: course)
   end
 

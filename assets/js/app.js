@@ -8,8 +8,8 @@ import Chart from 'chart.js'
 
 up.compiler('.student-graph', (e) => {
   const lg = document.getElementById('last-grades')
-  const data = JSON.parse(lg.dataset.data)
-  const c = new Chart(lg, data)
+  // const data = JSON.parse(lg.dataset.data)
+  // const c = new Chart(lg, data)
 })
 
 

@@ -60,6 +60,7 @@ defmodule Gradely.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.clean": ["ecto.drop", "ecto.create", "ecto.migrate"],
       test: ["ecto.reset", "test"]
     ]
   end

@@ -14,37 +14,39 @@
   </head>
   <body class="flex bg-gray-200">
 
-    <nav class="w-20 bg-white border-r border-gray-400">
-      <a role=logo href="/" up-target=".container">
-        <img src="/images/logo.png" class="mx-auto mb-4 w-16" alt="logo">
-      </a>
-      <a role=menu-item href="/students" up-target=".container" up-nav class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
-        <i data-feather="users"></i>
-      </a>
-      <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
-        <i data-feather="book"></i>
-      </a>
-      <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
-        <i class="material-icons">exit_to_app</i>
-      <% end %>
-      <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
-        <i data-feather="book"></i>
-      </a>
-    </nav>
+    <%= if @conn.assigns.current_user do %>
+      <nav class="w-20 bg-white border-r border-gray-400">
+        <a role=logo href="/" up-target=".container">
+          <img src="/images/logo.png" class="mx-auto mb-4 w-16" alt="logo">
+        </a>
+        <a role=menu-item href="/students" up-target=".container" up-nav class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
+          <i data-feather="users"></i>
+        </a>
+        <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
+          <i data-feather="book"></i>
+        </a>
+        <%= link to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "white-30 hover-white link" do %>
+          <i class="material-icons">exit_to_app</i>
+        <% end %>
+        <a role=menu-item href="/courses" up-target=".container" class="flex items-center justify-center h-16 text-gray-600 hover:bg-gray-300 border-solid hover:border-gray-700 border-l-4">
+          <i data-feather="book"></i>
+        </a>
+      </nav> 
+    <% end %>
 
     <main class="flex-auto">
+      <%= if @conn.assigns.current_user do %>
       <div class="top-bar flex items-center h-12 pl-8 bg-white border-b border-gray-400">
         <span class="search flex items-center text-xl">
           <i data-feather="search" class="text-gray-400"></i>
           <input class="ml-2 text-gray-600" type="text" placeholder="Search">
         </span>
-
       </div>
+    <% end %>
 
-
-      <div class="container mx-auto px-8 py-4">
-        <%= render @view_module, @view_template, assigns %>
-      </div>
+    <div class="container mx-auto px-8 py-4">
+      <%= render @view_module, @view_template, assigns %>
+    </div>
 
     </main>
     <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>

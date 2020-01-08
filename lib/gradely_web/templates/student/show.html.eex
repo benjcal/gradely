@@ -1,11 +1,51 @@
-<div class="flex">
-  <div role="left" class="flex-auto bg-green-200"></div>
-  <div role="right" class=flex-auto">
-    <div class="student-graph" width="400" height="300">
-      <canvas id="last-grades" data-data='<%= gen_chart_data %>'></canvas> 
-    </div>
-  </div>
+
+<!-- HEADER -->
+<div role=header class="flex items-center justify-between h-16 rounded-lg">
+
+  <!-- PAGE NAME -->
+  <span class="flex items-center text-gray-700 text-2xl">
+    <i data-feather="users"></i>
+    <span class="pl-2">Show Student</span>
+  </span>
 </div>
+
+
+<!-- BODY -->
+<div class="bg-white rounded-lg p-4">
+
+  <!-- TOP TWO COLUMN CONTAINER -->
+  <div class="flex">
+
+    <!-- LEFT -->
+    <div role="left" class="flex-auto bg-green-200">
+      <span><%= @student.first_name %> <%= @student.last_name %></span>
+    </div>
+
+    <!-- RIGHT -->
+    <div role="right" class="flex-auto">
+      <div class="student-graph" width="400" height="300">
+        <canvas id="last-grades" data-data=<%= gen_chart_data %>></canvas> 
+      </div>
+    </div>
+
+  </div>
+
+  <%= for course <- @student.courses do %>
+    <div class="flex py-2 pl-1 mb-3 text-lg text-gray-500 shadow rounded"><%= course.name %></div>
+    
+    <%= for activity <- course.activities do %>
+      <div class="text-gray-700 border rounded ml-2 mb-2 p-1">
+        <span>
+          <%= activity.name %>
+        </span>
+      </div>
+
+    <% end %>
+  <% end %>
+</div>
+
+
+
 
 <div class="m-3 p-4 rounded bg-white shadow">
   <!-- HEADER - TODO: UPDATE TO NEW STYLE -->
@@ -90,7 +130,9 @@
                         type="checkbox"
                         id='<%= grade_id_late(@student, activity) %>'
                         name="grade[late]"
-                        class="hidden">
+                        class="hidden"
+                        <%= if grade.late, do: "checked" %> 
+                      >
 
                         <label for='<%= grade_id_late(@student, activity) %>'>
                           <i data-feather="clock" class="w-4"></i>
@@ -107,7 +149,9 @@
                         type="checkbox"
                         id='<%= grade_id_missing(@student, activity) %>'
                         name="grade[missing]"
-                        class="hidden">
+                        class="hidden"
+                        <%= if grade.missing, do: "checked" %> 
+                      >
 
                         <label for='<%= grade_id_missing(@student, activity) %>'>
                           <i data-feather="download" class="w-4"></i>

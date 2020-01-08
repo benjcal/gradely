@@ -56,11 +56,12 @@ defmodule GradelyWeb.StudentController do
   def edit(conn, %{"id" => id}) do
     student = Students.get_student!(id)
     changeset = Students.change_student(student)
+    courses = Courses.get_by_organization_id(get_organization_id(conn))
 
     render(conn, "edit.html",
       student: student,
       changeset: changeset,
-      courses: Gradely.Courses.by_user(get_user_id(conn))
+      courses: courses 
     )
   end
 

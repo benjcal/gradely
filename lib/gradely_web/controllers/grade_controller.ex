@@ -6,8 +6,21 @@ defmodule GradelyWeb.GradeController do
 
   def grade(conn, params) do
     %{"grade" => grade_params} = params
-    IO.inspect grade_params
 
+    late =
+      case grade_params["late"] do
+        nil -> false
+        "on" -> true
+      end
+    
+    missing =
+      case grade_params["missing"] do
+        nil -> false
+        "on" -> true
+      end
+
+   grade_params = Map.put(grade_params, "late", late) 
+   grade_params = Map.put(grade_params, "missing", missing) 
 
     case Grades.grade(grade_params) do
       {:ok, grade} ->
@@ -19,15 +32,6 @@ defmodule GradelyWeb.GradeController do
         |> redirect(to: Routes.student_path(conn, :show, grade_params["student_id"]))
     end
 
-    #%{"grade" => grade_params} = params
-    #case Grades.grade(grade_params) do
-      #{:ok, grade} ->
-        #conn
-        #|> redirect(to: Routes.student_path(conn, :show, grade_params["student_id"]))
-
-      #{:error, %Ecto.Changeset{} = changeset} ->
-        #render(conn, "new.html", changeset: changeset)
-    #end
   end
 
 end

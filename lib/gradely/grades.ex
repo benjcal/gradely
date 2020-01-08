@@ -32,7 +32,7 @@ defmodule Gradely.Grades do
     {:ok, nil}
   end
 
-  def resolve_value(value, total) do
+  defp resolve_value(value, total) do
     if has_operator(value) do
       case get_vals(value, total) do
         {:add, l, r} -> l + r
