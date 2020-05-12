@@ -4,8 +4,12 @@
 
   <!-- PAGE NAME -->
   <span class="flex items-center text-gray-700 text-2xl">
-    <i data-feather="users"></i>
-    <span class="pl-2">Show Student</span>
+    <div
+    class="w-8 h-8 flex justify-center items-center rounded-full text-gray-100 text-sm font-semibold"
+    style="background: #<%= color(@student.first_name <> @student.last_name)%>">
+    <%= String.at(@student.first_name, 0) <> String.at(@student.last_name, 0) %>
+    </div>
+    <span class="pl-2"><%= @student.first_name %> <%= @student.last_name %></span>
   </span>
 </div>
 
@@ -18,7 +22,7 @@
 
     <!-- LEFT -->
     <div role="left" class="flex-auto bg-green-200">
-      <span><%= @student.first_name %> <%= @student.last_name %></span>
+      <div class="font-semibold">Enrolled Courses</div>
     </div>
 
     <!-- RIGHT -->
@@ -44,6 +48,9 @@
   <% end %>
 </div>
 
+<div class="pills flex text-gray-600 mt-2">
+  <a href="<%= Routes.student_path(@conn, :edit, @student) %>" class="flex items-center justify-center w-24 h-8 rounded bg-white hover:bg-gray-300 shadow font-semibold mr-2">Edit</a>
+</div>
 
 
 
